@@ -1,8 +1,114 @@
-// <!--
-//  * @Description:
-//  * @Author: llgtfoo
-//  * @Date: 2021-10-22 10:01:53
-//  * @LastEditTime: 2021-10-22 10:01:54
-//  * @LastEditors: llgtfoo
-//  * @FilePath: \react-tpl-umi\src\layout\index.vue
-// -->
+import { Layout, Menu, Breadcrumb } from 'antd';
+import {
+  UserOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
+} from '@ant-design/icons';
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+import { useState, useEffect } from 'react';
+import './index.less';
+import { connect, history } from 'umi';
+const Layouts = (props) => {
+  const { children, dispatch, menuList } = props;
+  console.log(props, 'props', history);
+  const [collapsed, setCollapsed] = useState(false); //折叠
+  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState([]); //菜单默认选中
+  //折叠方法
+  const toggle = (collapseds, type) => {
+    setCollapsed(collapseds);
+  };
+  //获取菜单
+  useEffect(() => {
+    dispatch({
+      type: 'common/fetchMenuList',
+      payload: {},
+    });
+  }, []);
+  return (
+    <Layout>
+      <Header className="layout-header">
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={defaultSelectedKeys}
+        >
+          {menuList.map((item) => {
+            return (
+              <Menu.Item v-for="(item) in menuList" key={item.url}>
+                {item.title}
+              </Menu.Item>
+            );
+          })}
+        </Menu>
+      </Header>
+      {true ? (
+        <Layout>
+          <Sider
+            width={230}
+            className="site-layout-background"
+            collapsible
+            collapsed={collapsed}
+            onCollapse={toggle}
+          >
+            <Menu
+              theme="light"
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+                <Menu.Item key="1">option1</Menu.Item>
+                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="3">option3</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item>
+              </SubMenu>
+              <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+                <Menu.Item key="5">option5</Menu.Item>
+                <Menu.Item key="6">option6</Menu.Item>
+                <Menu.Item key="7">option7</Menu.Item>
+                <Menu.Item key="8">option8</Menu.Item>
+              </SubMenu>
+              <SubMenu
+                key="sub3"
+                icon={<NotificationOutlined />}
+                title="subnav 3"
+              >
+                <Menu.Item key="9">option9</Menu.Item>
+                <Menu.Item key="10">option10</Menu.Item>
+                <Menu.Item key="11">option11</Menu.Item>
+                <Menu.Item key="12">option12</Menu.Item>
+              </SubMenu>
+            </Menu>
+          </Sider>
+          <Layout style={{ padding: '0 10px 10px' }}>
+            <Breadcrumb style={{ margin: '15px 0' }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <Content
+              className="site-layout-background"
+              style={{
+                padding: 20,
+                margin: 0,
+                minHeight: 280,
+              }}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Layout>
+      ) : (
+        <Layout style={{ padding: '10px' }}>{children}</Layout>
+      )}
+    </Layout>
+  );
+};
+
+export default connect((data) => {
+  console.log(data, 'data');
+  return data.common;
+})(Layouts);

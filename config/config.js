@@ -25,8 +25,16 @@ export default defineConfig({
   fastRefresh: {},
   mfsu: {},
   ignoreMomentLocale: true,
-  // layout:{}
   webpack5: {},
   autoprefixer: {},
-  extraBabelPlugins: ['babel-plugin-import-glob'],
+  extraBabelPlugins: [
+    'babel-plugin-import-glob',
+    [
+      'require-glob',
+      {
+        pattern: '',
+        options: {},
+      },
+    ],
+  ],
 });
