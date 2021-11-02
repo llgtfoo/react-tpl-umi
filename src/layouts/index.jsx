@@ -1,113 +1,91 @@
+import React, { Component } from 'react';
+import { connect, history } from 'umi';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from '@ant-design/icons';
+
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
-import { useState, useEffect } from 'react';
+import SiderMenu from './SiderMenu.jsx';
 import './index.less';
-import { connect, history } from 'umi';
-const Layouts = (props) => {
-  const { children, dispatch, menuList } = props;
-  console.log(props, 'props', history);
-  const [collapsed, setCollapsed] = useState(false); //折叠
-  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState([]); //菜单默认选中
-  //折叠方法
-  const toggle = (collapseds, type) => {
-    setCollapsed(collapseds);
+class Layouts extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedKeys: '', //顶部选中
+    };
+  }
+  //菜单点击
+  clickMenuItem = ({ key, keyPath, domEvent }) => {
+    const { history, dispatch } = this.props;
+    history.push(key); //跳转
+    this.setState({
+      selectedKeys: key,
+    }); //选中
+    const currentMenu = this.getMenu(key);
+    dispatch({
+      type: 'common/setSiderMenus',
+      payload: { currentMenu: currentMenu },
+    });
   };
-  //获取菜单
-  useEffect(() => {
+  //处理侧边菜单数据
+  getMenu = (key) => {
+    if (this.props.menuList.length === 0) {
+      return;
+    }
+    let list = [];
+    const currentMenu = this.props.menuList.filter((v) => v.url === key);
+    if (currentMenu.length > 0) {
+      if (currentMenu[0].children && currentMenu[0].children.length > 0) {
+        list = currentMenu[0].children;
+      } else {
+        list = [];
+      }
+    }
+    return list;
+  };
+  componentDidMount() {
+    const { dispatch, history, menuList } = this.props;
+    const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
+    //获取菜单
     dispatch({
       type: 'common/fetchMenuList',
-      payload: {},
+      payload: { currentUrl: current },
     });
-  }, []);
-  return (
-    <Layout>
-      <Header className="layout-header">
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={defaultSelectedKeys}
-        >
-          {menuList.map((item) => {
-            return (
-              <Menu.Item v-for="(item) in menuList" key={item.url}>
-                {item.title}
-              </Menu.Item>
-            );
-          })}
-        </Menu>
-      </Header>
-      {true ? (
-        <Layout>
-          <Sider
-            width={230}
-            className="site-layout-background"
-            collapsible
-            collapsed={collapsed}
-            onCollapse={toggle}
+    this.setState({
+      selectedKeys: current,
+    });
+  }
+  render() {
+    console.log(this.props, '-');
+    const { selectedKeys } = this.state;
+    const { menuList, children, siderMenu } = this.props;
+    return (
+      <Layout>
+        <Header className="layout-header">
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            selectedKeys={selectedKeys}
+            onClick={this.clickMenuItem}
           >
-            <Menu
-              theme="light"
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1">option1</Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                <Menu.Item key="5">option5</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
-                <Menu.Item key="7">option7</Menu.Item>
-                <Menu.Item key="8">option8</Menu.Item>
-              </SubMenu>
-              <SubMenu
-                key="sub3"
-                icon={<NotificationOutlined />}
-                title="subnav 3"
-              >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
-              </SubMenu>
-            </Menu>
-          </Sider>
-          <Layout style={{ padding: '0 10px 10px' }}>
-            <Breadcrumb style={{ margin: '15px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <Content
-              className="site-layout-background"
-              style={{
-                padding: 20,
-                margin: 0,
-                minHeight: 280,
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
-        </Layout>
-      ) : (
-        <Layout style={{ padding: '10px' }}>{children}</Layout>
-      )}
-    </Layout>
-  );
-};
-
+            {menuList.map((item) => {
+              return (
+                <Menu.Item v-for="(item) in menuList" key={item.url}>
+                  {item.title}
+                </Menu.Item>
+              );
+            })}
+          </Menu>
+        </Header>
+        {siderMenu.length > 0 ? (
+          <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
+        ) : (
+          <Layout style={{ padding: '10px' }}>{children}</Layout>
+        )}
+      </Layout>
+    );
+  }
+}
 export default connect((data) => {
   console.log(data, 'data');
   return data.common;

@@ -1,8 +1,8 @@
 import routerList from '../src/pages/index.js';
 console.log(routerList, 'routerList');
-routerList.forEach((item) => {
-  console.log(item);
-});
+// routerList.forEach((item) => {
+//   console.log(item);
+// });
 export default [
   {
     path: '/',
@@ -21,7 +21,9 @@ export default [
           {
             path: '/home',
             component: '@/pages/home/index.jsx',
+            meta: { title: '首页' },
           },
+          ...routerList, //页面路由
           {
             component: '@/pages/notFound/404.jsx',
           },

@@ -1,25 +1,32 @@
 export default [
   {
     path: '/module-1',
-    component: './index.jsx',
+    component: '@/pages/module-1/index.jsx',
+    meta: { title: '模块一' },
     routes: [
       {
+        path: '/module-1',
+        redirect: '/module-1/menu-1',
+      },
+      {
         path: '/module-1/menu-1',
-        component: './menu-1/index.jsx',
+        component: '@/pages/module-1/menu-1/index.jsx',
+        meta: { title: '菜单一' },
       },
       {
         path: '/module-1/menu-2',
         redirect: '/module-1/menu-2/name-1',
-        routes: [
-          {
-            path: '/module-1/menu-2/name-1',
-            component: './menu-1/one/index.jsx',
-          },
-          {
-            path: '/module-1/menu-2/name-2',
-            component: './menu-1/two/index.jsx',
-          },
-        ],
+        meta: { title: '菜单二' },
+      },
+      {
+        path: '/module-1/menu-2/name-1',
+        component: '@/pages/module-1/menu-2/one/index.jsx',
+        meta: { title: '菜单二1' },
+      },
+      {
+        path: '/module-1/menu-2/name-2',
+        component: '@/pages/module-1/menu-2/two/index.jsx',
+        meta: { title: '菜单二2' },
       },
     ],
   },
