@@ -10,21 +10,24 @@ class Layouts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedKeys: '', //顶部选中
+      selectedKeys: [], //顶部选中
+      siderSelectedKeys: [],
     };
   }
   //菜单点击
   clickMenuItem = ({ key, keyPath, domEvent }) => {
-    const { history, dispatch } = this.props;
+    const { dispatch } = this.props;
     history.push(key); //跳转
-    this.setState({
-      selectedKeys: key,
-    }); //选中
     const currentMenu = this.getMenu(key);
     dispatch({
       type: 'common/setSiderMenus',
       payload: { currentMenu: currentMenu },
     });
+    this.setState({
+      selectedKeys: [key],
+      siderSelectedKeys: [history.location.pathname],
+    }); //选中
+    console.log(this.state, '000-------', history.location.pathname);
   };
   //处理侧边菜单数据
   getMenu = (key) => {
@@ -43,7 +46,7 @@ class Layouts extends Component {
     return list;
   };
   componentDidMount() {
-    const { dispatch, history, menuList } = this.props;
+    const { dispatch, menuList } = this.props;
     const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
     //获取菜单
     dispatch({
@@ -51,12 +54,14 @@ class Layouts extends Component {
       payload: { currentUrl: current },
     });
     this.setState({
-      selectedKeys: current,
+      selectedKeys: [current],
+      siderSelectedKeys: [history.location.pathname],
     });
+    // console.log(this.state, 'state----------------');
   }
   render() {
     console.log(this.props, '-');
-    const { selectedKeys } = this.state;
+    const { selectedKeys, siderSelectedKeys } = this.state;
     const { menuList, children, siderMenu } = this.props;
     return (
       <Layout>
@@ -78,7 +83,11 @@ class Layouts extends Component {
           </Menu>
         </Header>
         {siderMenu.length > 0 ? (
-          <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
+          <SiderMenu
+            children={children}
+            siderMenu={siderMenu}
+            siderSelectedKeys={siderSelectedKeys}
+          ></SiderMenu>
         ) : (
           <Layout style={{ padding: '10px' }}>{children}</Layout>
         )}
@@ -87,6 +96,6 @@ class Layouts extends Component {
   }
 }
 export default connect((data) => {
-  console.log(data, 'data');
+  //   console.log(data, 'data');
   return data.common;
 })(Layouts);

@@ -12,11 +12,14 @@ import {
 export default class SiderMenu extends Component {
   static propTypes = {
     siderMenu: PropTypes.array,
+    siderSelectedKeys: PropTypes.array,
   };
   constructor(props) {
     super(props);
     this.state = {
       collapsed: false, //菜单收缩
+      selectedKeys: [], //选中
+      openKeys: [], //打开
     };
   }
   //菜单折叠方法
@@ -25,9 +28,32 @@ export default class SiderMenu extends Component {
       collapsed: collapseds,
     });
   };
+  componentDidMount() {
+    history.listen(({ pathname }) => {
+      console.log(pathname, 'common1');
+      this.setState({
+        selectedKeys: pathname,
+      });
+    });
+  }
+  //   componentDidMount() {
+  //     console.log(history.location.pathname, 'history.location.pathname');
+  //     const selectedKey = [history.location.pathname];
+  //     this.setState({
+  //       selectedKeys: selectedKey,
+  //     });
+  //   }
+  //   componentDidUpdate() {
+  //     const selectedKey = [history.location.pathname];
+  //     // this.setState({
+  //     //   selectedKeys: selectedKey,
+  //     // });
+  //     console.log([history.location.pathname], this.state);
+  //   }
   render() {
-    const { collapsed } = this.state;
-    const { children, siderMenu } = this.props;
+    console.log(this.props, 'SiderMenu');
+    const { collapsed, selectedKeys, openKeys } = this.state;
+    const { children, siderMenu, siderSelectedKeys } = this.props;
     return (
       <Layout>
         <Sider
@@ -40,8 +66,8 @@ export default class SiderMenu extends Component {
           <Menu
             theme="light"
             mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            selectedKeys={selectedKeys}
+            // openKeys={openKeys}
             style={{ height: '100%', borderRight: 0 }}
           >
             {siderMenu.map((item) => {
