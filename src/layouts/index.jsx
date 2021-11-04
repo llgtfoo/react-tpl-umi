@@ -11,7 +11,6 @@ class Layouts extends Component {
     super(props);
     this.state = {
       selectedKeys: [], //顶部选中
-      siderSelectedKeys: [],
     };
   }
   //菜单点击
@@ -55,7 +54,6 @@ class Layouts extends Component {
     });
     this.setState({
       selectedKeys: [current],
-      siderSelectedKeys: [history.location.pathname],
     });
     // console.log(this.state, 'state----------------');
   }
@@ -83,11 +81,7 @@ class Layouts extends Component {
           </Menu>
         </Header>
         {siderMenu.length > 0 ? (
-          <SiderMenu
-            children={children}
-            siderMenu={siderMenu}
-            siderSelectedKeys={siderSelectedKeys}
-          ></SiderMenu>
+          <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
         ) : (
           <Layout style={{ padding: '10px' }}>{children}</Layout>
         )}

@@ -8,6 +8,7 @@ const waitTime = (time = 100) => {
 export default {
   //菜单接口
   'GET /api/getMenu': async (req, res) => {
+    await waitTime(1500);
     res.send({
       success: true,
       data: [
@@ -16,42 +17,48 @@ export default {
           title: '首页',
           name: '',
           url: '/home',
-          parent: '首页',
+          parentUrl: '',
+          parentName: '',
         },
         {
           icon: '',
           title: '模块一',
           name: '',
           url: '/module-1',
-          parent: '模块一',
+          parentUrl: '',
+          parentName: '',
           children: [
             {
               icon: '',
               title: '菜单一',
               name: '',
               url: '/module-1/menu-1',
-              parent: '模块一',
+              parentName: '模块一',
+              parentUrl: '/module-1',
             },
             {
               icon: '',
               title: '菜单二',
               name: '',
               url: '/module-1/menu-2',
-              parent: '模块一',
+              parentName: '模块一',
+              parentUrl: '/module-1',
               children: [
                 {
                   icon: '',
                   title: '菜单二-1',
                   name: '',
                   url: '/module-1/menu-2/name-1',
-                  parent: '模块一',
+                  parentName: '模块一',
+                  parentUrl: '/module-1/menu-2',
                 },
                 {
                   icon: '',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-1/menu-2/name-2',
-                  parent: '模块一',
+                  parentName: '模块一',
+                  parentUrl: '/module-1/menu-2',
                 },
               ],
             },
@@ -62,28 +69,32 @@ export default {
           title: '模块二',
           name: '',
           url: '/module-2',
-          parent: '模块二',
+          parentName: '',
+          parentUrl: '',
           children: [
             {
               icon: '',
               title: '菜单二',
               name: '',
               url: '/module-2/menu-1',
-              parent: '模块二',
+              parentName: '模块二',
+              parentUrl: '/module-2',
               children: [
                 {
                   icon: '',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-2/menu-1/name-1',
-                  parent: '模块二',
+                  parentName: '模块二',
+                  parentUrl: '/module-2/menu-1',
                 },
                 {
                   icon: '',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-2/menu-1/name-2',
-                  parent: '模块二',
+                  parentName: '模块二',
+                  parentUrl: '/module-2/menu-1',
                 },
               ],
             },
