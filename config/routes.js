@@ -1,8 +1,5 @@
 import routerList from '../src/pages/index.js';
-console.log(routerList, 'routerList');
-// routerList.forEach((item) => {
-//   console.log(item);
-// });
+
 export default [
   {
     path: '/',

@@ -16,81 +16,65 @@ export default class SiderMenu extends Component {
   };
   constructor(props) {
     super(props);
+    this.currentSelectedMenu = {}; //父级展开项
     this.unlisten = null;
-    this.currentSelectedMenu = {};
-    this.fetchObj(this.props.siderMenu, history.location.pathname);
     this.state = {
       collapsed: false, //菜单收缩
-      selectedKeys: [history.location.pathname], //选中
-      openKeys: [this.currentSelectedMenu.parentUrl], //打开
+      openKeys: [], //展开
     };
-    console.log(this.props, this.currentSelectedMenu, 'constructor');
   }
+  componentDidMount() {
+    //监听路由改变展开默认菜单
+    if (this.unlisten) {
+      return;
+    }
+    this.unlisten = history.listen(({ pathname }) => {
+      this.fetchObj(this.props.siderMenu, pathname); //获取选中的父级打开菜单
+      this.setState((state, props) => {
+        return {
+          openKeys: [this.currentSelectedMenu.parentUrl], //展开
+        };
+      });
+    });
+  }
+  componentWillUnmount() {
+    if (this.unlisten) {
+      this.unlisten();
+    }
+  }
+  //递归获取子菜单父级展开项
   fetchObj = (collenction, target) => {
-    console.log(collenction, target, 'collenction, target');
     collenction.forEach((item) => {
       if (item.url === target) {
         this.currentSelectedMenu = { ...item };
-        console.log(item, 111);
       } else if (item.children && item.children.length > 0) {
         this.fetchObj(item.children, target);
-        console.log(222);
       }
     });
-    console.log(this.currentSelectedMenu, 'boj');
   };
   //菜单折叠方法
   toggle = (collapseds, type) => {
     this.setState({
       collapsed: collapseds,
-      openKeys: [],
     });
   };
+  //点击跳转
   clickMenuItem = ({ key, keyPath, domEvent }) => {
-    console.log(key, keyPath);
+    history.push(key);
   };
+  //点击菜单展开
   openChange = (openKeys) => {
+    const last = openKeys.pop();
     console.log(openKeys, 'openKeys');
     this.setState({
-      openKeys: openKeys,
+      openKeys: [last],
     });
   };
-  // componentDidMount() {
-  //   if (this.unlisten) {
-  //     return;
-  //   }
-  //   this.unlisten = history.listen(({ pathname }) => {
-  //     this.setState({
-  //       selectedKeys: [pathname],
-  //       openKeys: [],
-  //     });
-  //     console.log(this.state);
-  //   });
-  // }
-  // componentWillUnmount() {
-  //   console.log(this);
-  //   if (this.unlisten) {
-  //     this.unlisten();
-  //   }
-  // }
-  //   componentDidMount() {
-  //     console.log(history.location.pathname, 'history.location.pathname');
-  //     const selectedKey = [history.location.pathname];
-  //     this.setState({
-  //       selectedKeys: selectedKey,
-  //     });
-  //   }
-  //   componentDidUpdate() {
-  //     const selectedKey = [history.location.pathname];
-  //     // this.setState({
-  //     //   selectedKeys: selectedKey,
-  //     // });
-  //     console.log([history.location.pathname], this.state);
-  //   }
   render() {
     console.log(this.props, this.state, 'SiderMenu');
-    const { collapsed, selectedKeys, openKeys, defaultOpenKeys } = this.state;
+    const { collapsed, openKeys } = this.state;
     const { children, siderMenu } = this.props;
+    const selectedKeys = [history.location.pathname]; //选中
     return (
       <Layout>
         <Sider
@@ -104,7 +88,6 @@ export default class SiderMenu extends Component {
             theme="light"
             mode="inline"
             selectedKeys={selectedKeys}
-            // defaultOpenKeys={defaultOpenKeys}
             openKeys={openKeys}
             style={{ height: '100%', borderRight: 0 }}
             onClick={this.clickMenuItem}
@@ -154,7 +137,7 @@ export default class SiderMenu extends Component {
               minHeight: 280,
             }}
           >
-            {children}
+            {siderMenu.length > 0 ? children : ''}
           </Content>
         </Layout>
       </Layout>

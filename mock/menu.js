@@ -8,7 +8,7 @@ const waitTime = (time = 100) => {
 export default {
   //菜单接口
   'GET /api/getMenu': async (req, res) => {
-    await waitTime(1500);
+    await waitTime(1000);
     res.send({
       success: true,
       data: [
@@ -59,6 +59,32 @@ export default {
                   url: '/module-1/menu-2/name-2',
                   parentName: '模块一',
                   parentUrl: '/module-1/menu-2',
+                },
+              ],
+            },
+            {
+              icon: '',
+              title: '菜单三',
+              name: '',
+              url: '/module-1/menu-3',
+              parentName: '模块一',
+              parentUrl: '/module-1',
+              children: [
+                {
+                  icon: '',
+                  title: '菜单二-1',
+                  name: '',
+                  url: '/module-1/menu-3/name-1',
+                  parentName: '模块一',
+                  parentUrl: '/module-1/menu-3',
+                },
+                {
+                  icon: '',
+                  title: '菜单二-2',
+                  name: '',
+                  url: '/module-1/menu-3/name-2',
+                  parentName: '模块一',
+                  parentUrl: '/module-1/menu-3',
                 },
               ],
             },

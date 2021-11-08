@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, history } from 'umi';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Spin } from 'antd';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -9,9 +9,7 @@ import './index.less';
 class Layouts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedKeys: [], //顶部选中
-    };
+    this.state = {};
   }
   //菜单点击
   clickMenuItem = ({ key, keyPath, domEvent }) => {
@@ -22,10 +20,6 @@ class Layouts extends Component {
       type: 'common/setSiderMenus',
       payload: { currentMenu: currentMenu },
     });
-    this.setState({
-      selectedKeys: [key],
-      siderSelectedKeys: [history.location.pathname],
-    }); //选中
     console.log(this.state, '000-------', history.location.pathname);
   };
   //处理侧边菜单数据
@@ -45,22 +39,29 @@ class Layouts extends Component {
     return list;
   };
   componentDidMount() {
-    const { dispatch, menuList } = this.props;
+    const { dispatch } = this.props;
     const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
     //获取菜单
     dispatch({
       type: 'common/fetchMenuList',
       payload: { currentUrl: current },
     });
-    this.setState({
-      selectedKeys: [current],
-    });
-    // console.log(this.state, 'state----------------');
   }
   render() {
     console.log(this.props, '-');
-    const { selectedKeys, siderSelectedKeys } = this.state;
-    const { menuList, children, siderMenu } = this.props;
+    const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
+    const selectedKeys = [current]; //顶部选中
+    const { menuList, children, menuLoading } = this.props;
+    //获取侧边菜单
+    let siderMenu = [];
+    const currentMenu = menuList.filter((v) => v.url === current);
+    if (currentMenu.length > 0) {
+      if (currentMenu[0].children && currentMenu[0].children.length > 0) {
+        siderMenu = currentMenu[0].children;
+      } else {
+        siderMenu = [];
+      }
+    }
     return (
       <Layout>
         <Header className="layout-header">
@@ -80,7 +81,11 @@ class Layouts extends Component {
             })}
           </Menu>
         </Header>
-        {siderMenu.length > 0 ? (
+        {menuLoading ? (
+          <div className="menuLoading">
+            <Spin size="large" />
+          </div>
+        ) : siderMenu.length > 0 ? (
           <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
         ) : (
           <Layout style={{ padding: '10px' }}>{children}</Layout>

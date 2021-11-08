@@ -23,6 +23,9 @@ export default [
         component: '@/pages/module-2/menu-1/two/index.jsx',
         meta: { title: '菜单一2' },
       },
+      {
+        component: '@/pages/notFound/404.jsx',
+      },
     ],
   },
 ];

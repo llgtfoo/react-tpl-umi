@@ -31,8 +31,6 @@
     "@types/react-dom": "^17.0.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.5.20",
-    "babel-plugin-import-glob": "^2.0.0",
-    "babel-plugin-require-glob": "^0.1.1",
     "cross-env": "^7.0.3",
     "glob": "^7.2.0",
     "lint-staged": "^10.0.7",

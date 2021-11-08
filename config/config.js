@@ -1,7 +1,6 @@
 import { defineConfig } from 'umi';
 import routes from './routes';
 import proxy from './proxy';
-
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
@@ -27,14 +26,4 @@ export default defineConfig({
   ignoreMomentLocale: true,
   webpack5: {},
   autoprefixer: {},
-  extraBabelPlugins: [
-    'babel-plugin-import-glob',
-    [
-      'require-glob',
-      {
-        pattern: '',
-        options: {},
-      },
-    ],
-  ],
 });
