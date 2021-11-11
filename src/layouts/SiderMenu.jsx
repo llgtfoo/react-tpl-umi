@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Tabs, Dropdown, Icon } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 import { connect, history } from 'umi';
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from '@ant-design/icons';
+const { TabPane } = Tabs;
+import { UserOutlined, DownOutlined } from '@ant-design/icons';
+import Ltabs from '../components/Tabs/index.jsx';
+import './SiderMenu.less';
 export default class SiderMenu extends Component {
   static propTypes = {
     siderMenu: PropTypes.array,
@@ -21,6 +20,8 @@ export default class SiderMenu extends Component {
     this.state = {
       collapsed: false, //菜单收缩
       openKeys: [], //展开
+      // activekeys: '', //tab默认选中项
+      tabLists: [],
     };
   }
   componentDidMount() {
@@ -30,8 +31,22 @@ export default class SiderMenu extends Component {
     }
     this.unlisten = history.listen(({ pathname }) => {
       this.fetchObj(this.props.siderMenu, pathname); //获取选中的父级打开菜单
+      let array = [];
       this.setState((state, props) => {
+        const index = state.tabLists.findIndex(
+          (item) => item.key === this.currentSelectedMenu.key,
+        );
+        if (
+          index === -1 &&
+          !this.currentSelectedMenu.children &&
+          Object.keys(this.currentSelectedMenu).length > 0
+        ) {
+          array = [...state.tabLists, this.currentSelectedMenu];
+        } else {
+          array = [...state.tabLists];
+        }
         return {
+          tabLists: array, //标签页数据
           openKeys: [this.currentSelectedMenu.parentUrl], //展开
         };
       });
@@ -46,6 +61,7 @@ export default class SiderMenu extends Component {
   fetchObj = (collenction, target) => {
     collenction.forEach((item) => {
       if (item.url === target) {
+        item.key = item.url;
         this.currentSelectedMenu = { ...item };
       } else if (item.children && item.children.length > 0) {
         this.fetchObj(item.children, target);
@@ -70,11 +86,63 @@ export default class SiderMenu extends Component {
       openKeys: [last],
     });
   };
+  //标签页点击
+  clickTab = (key) => {
+    history.push(key);
+  };
+  //标签页关闭
+  closeTab = (key) => {
+    const index = this.state.tabLists.findIndex((v) => v.key === key);
+    if (index !== -1) {
+      this.setState(
+        (state, props) => {
+          state.tabLists.splice(index, 1);
+          return {
+            tabLists: state.tabLists,
+          };
+        },
+        () => {
+          if (
+            key === history.location.pathname &&
+            this.state.tabLists.length > 0
+          ) {
+            const s =
+              index - 1 > 0 ? index - 1 : this.state.tabLists.length - 1;
+            history.push(this.state.tabLists[s].url);
+          }
+        },
+      );
+    }
+  };
+  dropdownItem = ({ key }) => {
+    console.log(key, 'dropdownItem');
+    if (key === 'close') {
+      this.setState((state, props) => {
+        return {
+          tabLists: [this.currentSelectedMenu],
+        };
+      });
+    } else if (key === 'refresh ') {
+    }
+  };
   render() {
     console.log(this.props, this.state, 'SiderMenu');
-    const { collapsed, openKeys } = this.state;
+    const { collapsed, openKeys, tabLists } = this.state;
     const { children, siderMenu } = this.props;
     const selectedKeys = [history.location.pathname]; //选中
+    const activekeys = history.location.pathname; //选中
+    const menu = (
+      <Menu onClick={this.dropdownItem}>
+        <Menu.Item key="close">关闭其他标签页</Menu.Item>
+        <Menu.Item key="refresh">刷新当前页</Menu.Item>
+      </Menu>
+    );
+    let closeable = true; //标签页显示关闭按钮
+    if (tabLists.length === 1) {
+      closeable = false;
+    } else {
+      closeable = true;
+    }
     return (
       <Layout>
         <Sider
@@ -98,12 +166,18 @@ export default class SiderMenu extends Component {
                 return (
                   <SubMenu
                     key={item.url}
-                    icon={<UserOutlined />}
+                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
                     title={item.title}
                     llgtfoo={item.url}
                   >
                     {item.children.map((v) => (
-                      <Menu.Item key={v.url} llgtfoo={v.url}>
+                      <Menu.Item
+                        key={v.url}
+                        llgtfoo={v.url}
+                        icon={
+                          <i className={'icon iconfont' + ' ' + item.icon}></i>
+                        }
+                      >
                         {v.title}
                       </Menu.Item>
                     ))}
@@ -114,7 +188,7 @@ export default class SiderMenu extends Component {
                   <Menu.Item
                     key={item.url}
                     llgtfoo={item.url}
-                    icon={<UserOutlined />}
+                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
                   >
                     {item.title}
                   </Menu.Item>
@@ -123,17 +197,32 @@ export default class SiderMenu extends Component {
             })}
           </Menu>
         </Sider>
-        <Layout style={{ padding: '0 10px 10px' }}>
-          <Breadcrumb style={{ margin: '15px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+        <Layout>
+          <div className="breadcrumb">
+            <Ltabs
+              list={tabLists}
+              style={{ paddingLeft: '15px' }}
+              activekeys={activekeys}
+              clicktab={this.clickTab}
+              clickclose={this.closeTab}
+              closeable={closeable}
+            ></Ltabs>
+            <div className="breadcrumb-tool">
+              <Dropdown overlay={menu} trigger={['click']}>
+                <span
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <DownOutlined style={{ fontSize: '14px' }} />
+                </span>
+              </Dropdown>
+            </div>
+          </div>
           <Content
             className="site-layout-background"
             style={{
               padding: 20,
-              margin: 0,
+              margin: '10px 15px',
               minHeight: 280,
             }}
           >

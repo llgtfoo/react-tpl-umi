@@ -1,4 +1,5 @@
-body,html,#root{
+/* @import './assets/iconfont/demo.css'; */
+body,html,#root,#watermark{
     width:100vw;
     height: 100vh;
     box-sizing: border-box;
@@ -9,4 +10,7 @@ body,html,#root{
 }
 ul,li{
     list-style: none;
+}
+.iconfont{
+    font-size: 16px!important;
 }

@@ -13,7 +13,7 @@ export default {
       success: true,
       data: [
         {
-          icon: '',
+          icon: 'icon-all-fill',
           title: '首页',
           name: '',
           url: '/home',
@@ -21,7 +21,7 @@ export default {
           parentName: '',
         },
         {
-          icon: '',
+          icon: 'icon-column',
           title: '模块一',
           name: '',
           url: '/module-1',
@@ -29,7 +29,7 @@ export default {
           parentName: '',
           children: [
             {
-              icon: '',
+              icon: 'icon-integral-fill',
               title: '菜单一',
               name: '',
               url: '/module-1/menu-1',
@@ -37,7 +37,7 @@ export default {
               parentUrl: '/module-1',
             },
             {
-              icon: '',
+              icon: 'icon-online-tracking-fill',
               title: '菜单二',
               name: '',
               url: '/module-1/menu-2',
@@ -45,7 +45,7 @@ export default {
               parentUrl: '/module-1',
               children: [
                 {
-                  icon: '',
+                  icon: 'icon-online-tracking-fill',
                   title: '菜单二-1',
                   name: '',
                   url: '/module-1/menu-2/name-1',
@@ -53,7 +53,7 @@ export default {
                   parentUrl: '/module-1/menu-2',
                 },
                 {
-                  icon: '',
+                  icon: 'icon-beauty',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-1/menu-2/name-2',
@@ -63,7 +63,7 @@ export default {
               ],
             },
             {
-              icon: '',
+              icon: 'icon-smile-fill',
               title: '菜单三',
               name: '',
               url: '/module-1/menu-3',
@@ -71,7 +71,7 @@ export default {
               parentUrl: '/module-1',
               children: [
                 {
-                  icon: '',
+                  icon: 'icon-default-template',
                   title: '菜单二-1',
                   name: '',
                   url: '/module-1/menu-3/name-1',
@@ -79,7 +79,7 @@ export default {
                   parentUrl: '/module-1/menu-3',
                 },
                 {
-                  icon: '',
+                  icon: 'icon-scenes-fill',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-1/menu-3/name-2',
@@ -91,7 +91,7 @@ export default {
           ],
         },
         {
-          icon: '',
+          icon: 'icon-inspection',
           title: '模块二',
           name: '',
           url: '/module-2',
@@ -99,7 +99,7 @@ export default {
           parentUrl: '',
           children: [
             {
-              icon: '',
+              icon: 'icon-manage-order',
               title: '菜单二',
               name: '',
               url: '/module-2/menu-1',
@@ -107,15 +107,15 @@ export default {
               parentUrl: '/module-2',
               children: [
                 {
-                  icon: '',
-                  title: '菜单二-2',
+                  icon: 'icon-trade-assurance',
+                  title: '菜单二-1',
                   name: '',
                   url: '/module-2/menu-1/name-1',
                   parentName: '模块二',
                   parentUrl: '/module-2/menu-1',
                 },
                 {
-                  icon: '',
+                  icon: 'icon-jizhuangxiang',
                   title: '菜单二-2',
                   name: '',
                   url: '/module-2/menu-1/name-2',

@@ -1,0 +1,62 @@
+@import '~antd/es/style/themes/default.less';
+.tab-line {
+  height: 46px;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px 0px,
+    rgba(0, 0, 0, 0.04) 0px 0px 6px 0px;
+  .tab-container {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    .go-move {
+      position: absolute;
+      transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+      left: 0;
+      top: 0px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      li {
+        color: #000000d9;
+        font-size: 16px;
+        font-variant: tabular-nums;
+        padding: 0 15px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        .ant-dropdown-link {
+          margin-left: 10px;
+          border-radius: 50%;
+          .anticon {
+            background-color: transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+            &:hover {
+              transform: scale(1.2);
+              color: @primary-color;
+            }
+          }
+        }
+        &.selected {
+          color: @primary-color;
+          border-bottom: 2px solid @primary-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .anticon {
+    cursor: pointer;
+    width: 15px;
+    height: 100%;
+    background-color: #f6f3f3;
+    display: flex;
+    align-items: center;
+  }
+}
