@@ -64,53 +64,53 @@ class Layouts extends Component {
       }
     }
     return (
-      <WaterMark
-        content="UmiJS 项目模板"
-        globalAlpha="0.15"
-        width="400"
-        height="300"
-      >
-        <Layout>
-          <Header className="layout-header">
-            {/* 系统logo */}
-            <div className="logo">
-              <i className="icon iconfont icon-years-fill"></i>
-              <span>系统名称</span>
-            </div>
-            <Menu
-              className="nav-menu-main"
-              theme="dark"
-              mode="horizontal"
-              selectedKeys={selectedKeys}
-              onClick={this.clickMenuItem}
-              style={{ height: '64px' }}
-            >
-              {menuList.map((item) => {
-                return (
-                  <Menu.Item
-                    v-for="(item) in menuList"
-                    key={item.url}
-                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-                  >
-                    {item.title}
-                  </Menu.Item>
-                );
-              })}
-            </Menu>
-            {/* 系统设置 */}
-            <SettingDropdown></SettingDropdown>
-          </Header>
-          {menuLoading ? (
-            <div className="menuLoading">
-              <Spin size="large" />
-            </div>
-          ) : siderMenu.length > 0 ? (
-            <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
-          ) : (
-            <Layout style={{ padding: '10px' }}>{children}</Layout>
-          )}
-        </Layout>
-      </WaterMark>
+      // <WaterMark
+      //   content="UmiJS 项目模板"
+      //   globalAlpha="0.15"
+      //   width="400"
+      //   height="300"
+      // >
+      <Layout>
+        <Header className="layout-header" style={{ position: 'fixed' }}>
+          {/* 系统logo */}
+          <div className="logo">
+            <i className="icon iconfont icon-years-fill"></i>
+            <span>系统名称</span>
+          </div>
+          <Menu
+            className="nav-menu-main"
+            theme="dark"
+            mode="horizontal"
+            selectedKeys={selectedKeys}
+            onClick={this.clickMenuItem}
+            style={{ height: '64px' }}
+          >
+            {menuList.map((item) => {
+              return (
+                <Menu.Item
+                  v-for="(item) in menuList"
+                  key={item.url}
+                  icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+                >
+                  {item.title}
+                </Menu.Item>
+              );
+            })}
+          </Menu>
+          {/* 系统设置 */}
+          <SettingDropdown></SettingDropdown>
+        </Header>
+        {menuLoading ? (
+          <div className="menuLoading">
+            <Spin size="large" />
+          </div>
+        ) : siderMenu.length > 0 ? (
+          <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
+        ) : (
+          <Layout style={{ padding: '10px', marginTop: 64 }}>{children}</Layout>
+        )}
+      </Layout>
+      // </WaterMark>
     );
   }
 }

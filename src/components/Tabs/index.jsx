@@ -1,7 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import './index.less';
+import PropTypes from 'prop-types';
 import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
+import './index.less';
 class Tab extends Component {
+  static propTypes = {
+    list: PropTypes.array,
+    activekeys: PropTypes.string,
+    closeable: PropTypes.bool,
+    clickclose: PropTypes.func,
+    clicktab: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -89,7 +98,6 @@ class Tab extends Component {
       ...others
     } = this.props;
     const { icon, length } = this.state;
-    console.log(this.props, 'Tab');
     return (
       <Fragment>
         <div className="tab-line" {...others}>

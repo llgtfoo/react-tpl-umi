@@ -10,7 +10,7 @@ export default [
       },
       {
         path: '/module-1/menu-1',
-        component: '@/pages/module-1/menu-1/index.jsx',
+        component: '@/pages/module-1/children/menu-1/index.jsx',
         meta: { title: '菜单一' },
       },
       {
@@ -20,12 +20,12 @@ export default [
       },
       {
         path: '/module-1/menu-2/name-1',
-        component: '@/pages/module-1/menu-2/one/index.jsx',
+        component: '@/pages/module-1/children/menu-2/one/index.jsx',
         meta: { title: '菜单二1' },
       },
       {
         path: '/module-1/menu-2/name-2',
-        component: '@/pages/module-1/menu-2/two/index.jsx',
+        component: '@/pages/module-1/children/menu-2/two/index.jsx',
         meta: { title: '菜单二2' },
       },
       {

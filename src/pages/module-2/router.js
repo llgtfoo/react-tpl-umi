@@ -15,12 +15,12 @@ export default [
       },
       {
         path: '/module-2/menu-1/name-1',
-        component: '@/pages/module-2/menu-1/one/index.jsx',
+        component: '@/pages/module-2/children/menu-1/one/index.jsx',
         meta: { title: '菜单一1' },
       },
       {
         path: '/module-2/menu-1/name-2',
-        component: '@/pages/module-2/menu-1/two/index.jsx',
+        component: '@/pages/module-2/children/menu-1/two/index.jsx',
         meta: { title: '菜单一2' },
       },
       {

@@ -144,13 +144,19 @@ export default class SiderMenu extends Component {
       closeable = true;
     }
     return (
-      <Layout>
+      <Layout style={{ marginTop: 64, width: '100%' }}>
         <Sider
           width={230}
           className="site-layout-background"
           collapsible
           collapsed={collapsed}
           onCollapse={this.toggle}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+          }}
         >
           <Menu
             theme="light"
@@ -197,8 +203,11 @@ export default class SiderMenu extends Component {
             })}
           </Menu>
         </Sider>
-        <Layout>
-          <div className="breadcrumb">
+        <Layout style={{ marginLeft: 230, boxSizing: 'border-box' }}>
+          <div
+            className="breadcrumb"
+            style={{ position: 'fixed', right: 0, left: 230 }}
+          >
             <Ltabs
               list={tabLists}
               style={{ paddingLeft: '15px' }}
@@ -221,8 +230,8 @@ export default class SiderMenu extends Component {
           <Content
             className="site-layout-background"
             style={{
-              padding: 20,
-              margin: '10px 15px',
+              padding: 15,
+              margin: '56px 10px 10px',
               minHeight: 280,
             }}
           >

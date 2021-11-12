@@ -1,12 +1,10 @@
 @import '~antd/es/style/themes/default.less';
 .tab-line {
-  height: 46px;
+  height: 100%;
   width: 100%;
   background-color: #fff;
   display: flex;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px 0px,
-    rgba(0, 0, 0, 0.04) 0px 0px 6px 0px;
   .tab-container {
     flex: 1;
     height: 100%;
@@ -30,6 +28,7 @@
         align-items: center;
         box-sizing: border-box;
         cursor: pointer;
+        white-space: nowrap;
         .ant-dropdown-link {
           margin-left: 10px;
           border-radius: 50%;
