@@ -79,7 +79,7 @@ export default function MenuOne() {
   }
   return (
     <div className="menu-1-container">
-      <Stable columns={columns} dataSource={data} freeHeight={false}></Stable>
+      <Stable columns={columns} dataSource={data} freeHeight={true}></Stable>
     </div>
   );
 }

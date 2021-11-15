@@ -137,7 +137,7 @@ export default class SiderMenu extends Component {
         <Menu.Item key="refresh">刷新当前页</Menu.Item>
       </Menu>
     );
-    let closeable = true; //标签页显示关闭按钮
+    let closeable = true; //标签页显示关闭标签
     if (tabLists.length === 1) {
       closeable = false;
     } else {
@@ -203,10 +203,21 @@ export default class SiderMenu extends Component {
             })}
           </Menu>
         </Sider>
-        <Layout style={{ marginLeft: 230, boxSizing: 'border-box' }}>
+        <Layout
+          style={{
+            marginLeft: !collapsed ? 230 : 80,
+            boxSizing: 'border-box',
+            transition: 'all 400ms ease',
+          }}
+        >
           <div
             className="breadcrumb"
-            style={{ position: 'fixed', right: 0, left: 230 }}
+            style={{
+              position: 'fixed',
+              right: 0,
+              left: !collapsed ? 230 : 80,
+              transition: 'all 400ms ease',
+            }}
           >
             <Ltabs
               list={tabLists}
