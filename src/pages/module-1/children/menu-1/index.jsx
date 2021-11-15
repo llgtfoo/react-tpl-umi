@@ -1,5 +1,6 @@
 import React from 'react';
 import Stable from '@/components/Stable/index.jsx';
+import './index.less';
 export default function MenuOne() {
   const columns = [
     {
@@ -50,13 +51,13 @@ export default function MenuOne() {
       title: 'Column 6',
       dataIndex: 'address',
       key: '6',
-      width: 150,
+      width: 200,
     },
     {
       title: 'Column 7',
       dataIndex: 'address',
       key: '7',
-      width: 150,
+      width: 200,
     },
     { title: 'Column 8', dataIndex: 'address', key: '8' },
     {
@@ -76,5 +77,9 @@ export default function MenuOne() {
       address: `London Park no. ${i}`,
     });
   }
-  return <Stable columns={columns} dataSource={data}></Stable>;
+  return (
+    <div className="menu-1-container">
+      <Stable columns={columns} dataSource={data} freeHeight={false}></Stable>
+    </div>
+  );
 }

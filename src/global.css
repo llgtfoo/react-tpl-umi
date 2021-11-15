@@ -1,8 +1,10 @@
 /* @import './assets/iconfont/demo.css'; */
 body,html,#root{
     width:100%;
-    height: 100%;
+    /* height: 100%; */
+    height: max-content;
     box-sizing: border-box;
+    background-color: #f0f2f5;
     /* overflow-x: hidden; */
 }
 *{

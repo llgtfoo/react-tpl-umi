@@ -27,14 +27,10 @@ class Tab extends Component {
   componentDidMount() {
     this.autoHeight();
     //监听窗口改变
-    window.addEventListener('resize', () => {
-      this.autoHeight();
-    });
+    window.addEventListener('resize', this.autoHeight);
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', () => {
-      this.autoHeight();
-    });
+    window.removeEventListener('resize', this.autoHeight);
   }
   //计算容器宽度
   autoHeight = () => {
