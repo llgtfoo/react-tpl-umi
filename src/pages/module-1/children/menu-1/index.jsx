@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stable from '@/components/Stable/index.jsx';
 import './index.less';
 export default function MenuOne() {
@@ -61,6 +61,18 @@ export default function MenuOne() {
     },
     { title: 'Column 8', dataIndex: 'address', key: '8' },
     {
+      title: 'Column 9',
+      dataIndex: 'address',
+      key: '9',
+      width: 200,
+    },
+    {
+      title: 'Column 10',
+      dataIndex: 'address',
+      key: '10',
+      width: 200,
+    },
+    {
       title: 'Action',
       key: 'operation',
       fixed: 'right',
@@ -77,9 +89,36 @@ export default function MenuOne() {
       address: `London Park no. ${i}`,
     });
   }
+  const [currentPage, setCurrentPage] = useState(1); //当前页
+  const [total, setTotal] = useState(50); //总条数
+  const [pageSize, setPageSize] = useState(10); //页条数
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]); //多选
+  const onChange = (page, pageSize) => {
+    console.log(page, pageSize, 'onChange');
+    setCurrentPage(page);
+  };
+  const onShowSizeChange = (current, size) => {
+    console.log(current, size, 'onShowSizeChange');
+    setPageSize(size);
+  };
+  const onSelectChange = (selectedRowKeys, selectedRows) => {
+    console.log(selectedRowKeys, selectedRows, 'onSelectChange');
+    setSelectedRowKeys(selectedRowKeys);
+  };
   return (
     <div className="menu-1-container">
-      <Stable columns={columns} dataSource={data} freeHeight={true}></Stable>
+      <Stable
+        columns={columns}
+        dataSource={data}
+        freeHeight={false}
+        currentPage={currentPage}
+        total={total}
+        pageSize={pageSize}
+        onChange={onChange}
+        onShowSizeChange={onShowSizeChange}
+        onSelectChange={onSelectChange}
+        selectedRowKeys={selectedRowKeys}
+      ></Stable>
     </div>
   );
 }

@@ -107,7 +107,9 @@ class Layouts extends Component {
         ) : siderMenu.length > 0 ? (
           <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
         ) : (
-          <Layout style={{ padding: '10px', marginTop: 64 }}>{children}</Layout>
+          <Layout style={{ margin: '74px 10px 10px', background: '#fff' }}>
+            {children}
+          </Layout>
         )}
       </Layout>
       // </WaterMark>
