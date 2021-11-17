@@ -62,32 +62,6 @@ export default {
                 },
               ],
             },
-            {
-              icon: 'icon-smile-fill',
-              title: '菜单三',
-              name: '',
-              url: '/module-1/menu-3',
-              parentName: '模块一',
-              parentUrl: '/module-1',
-              children: [
-                {
-                  icon: 'icon-default-template',
-                  title: '菜单二-1',
-                  name: '',
-                  url: '/module-1/menu-3/name-1',
-                  parentName: '模块一',
-                  parentUrl: '/module-1/menu-3',
-                },
-                {
-                  icon: 'icon-scenes-fill',
-                  title: '菜单二-2',
-                  name: '',
-                  url: '/module-1/menu-3/name-2',
-                  parentName: '模块一',
-                  parentUrl: '/module-1/menu-3',
-                },
-              ],
-            },
           ],
         },
         {

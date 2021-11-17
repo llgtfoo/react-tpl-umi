@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Stable from '@/components/Stable/index.jsx';
 import './index.less';
 export default function MenuOne() {
-  const columns = [
+  const column = [
     {
       title: 'Full Name',
       width: 100,
       dataIndex: 'name',
+      align: 'center',
       key: 'name',
       fixed: 'left',
+      show: true,
     },
     {
       title: 'Age',
@@ -16,66 +18,95 @@ export default function MenuOne() {
       dataIndex: 'age',
       key: 'age',
       fixed: 'left',
+      align: 'center',
+      show: true,
     },
     {
       title: 'Column 1',
       dataIndex: 'address',
       key: '1',
-      width: 150,
+      align: 'center',
+      ellipsis: true,
+      show: true,
     },
     {
       title: 'Column 2',
       dataIndex: 'address',
+      align: 'center',
+      ellipsis: true,
       key: '2',
-      width: 150,
+      show: true,
     },
     {
       title: 'Column 3',
       dataIndex: 'address',
+      align: 'center',
+      ellipsis: true,
+      show: true,
       key: '3',
-      width: 150,
     },
     {
       title: 'Column 4',
       dataIndex: 'address',
+      align: 'center',
+      ellipsis: true,
       key: '4',
-      width: 150,
+      show: true,
     },
     {
       title: 'Column 5',
       dataIndex: 'address',
       key: '5',
-      width: 150,
+      align: 'center',
+      ellipsis: true,
+      show: true,
     },
     {
       title: 'Column 6',
       dataIndex: 'address',
+      align: 'center',
+      ellipsis: true,
       key: '6',
-      width: 200,
+      show: true,
     },
     {
       title: 'Column 7',
+      align: 'center',
       dataIndex: 'address',
+      ellipsis: true,
       key: '7',
-      width: 200,
+      show: true,
     },
-    { title: 'Column 8', dataIndex: 'address', key: '8' },
+    {
+      title: 'Column 8',
+      dataIndex: 'address',
+      key: '8',
+      align: 'center',
+      ellipsis: true,
+      show: true,
+    },
     {
       title: 'Column 9',
       dataIndex: 'address',
+      align: 'center',
       key: '9',
-      width: 200,
+      ellipsis: true,
+      show: true,
     },
     {
       title: 'Column 10',
       dataIndex: 'address',
+      align: 'center',
       key: '10',
-      width: 200,
+      ellipsis: true,
+      show: true,
     },
     {
       title: 'Action',
+      align: 'center',
       key: 'operation',
       fixed: 'right',
+      show: true,
       width: 100,
       render: () => <a>action</a>,
     },
@@ -89,6 +120,7 @@ export default function MenuOne() {
       address: `London Park no. ${i}`,
     });
   }
+  const [columns, setColumns] = useState(column); //当前页
   const [currentPage, setCurrentPage] = useState(1); //当前页
   const [total, setTotal] = useState(50); //总条数
   const [pageSize, setPageSize] = useState(10); //页条数
@@ -105,19 +137,33 @@ export default function MenuOne() {
     console.log(selectedRowKeys, selectedRows, 'onSelectChange');
     setSelectedRowKeys(selectedRowKeys);
   };
+  const onClickRow = (event, record) => {
+    console.log(record, 'onClickRow');
+  };
+  const onDoubleClickRow = (event, record) => {
+    console.log(record, 'onDoubleClick');
+  };
+  const onColumnsShow = (column) => {
+    setColumns(column);
+    console.log(columns, 'columnssssssss');
+  };
   return (
     <div className="menu-1-container">
       <Stable
         columns={columns}
         dataSource={data}
-        freeHeight={false}
-        currentPage={currentPage}
-        total={total}
-        pageSize={pageSize}
-        onChange={onChange}
-        onShowSizeChange={onShowSizeChange}
-        onSelectChange={onSelectChange}
-        selectedRowKeys={selectedRowKeys}
+        freeHeight={false} //表格高度自由延伸
+        currentPage={currentPage} //当前页
+        total={total} //总数
+        pageSize={pageSize} //页条数
+        onChange={onChange} //当前页改变
+        onShowSizeChange={onShowSizeChange} //页条数改变
+        rowSelection={true} //多选显示
+        onSelectChange={onSelectChange} //多选改变函数
+        selectedRowKeys={selectedRowKeys} //多选选中
+        onClickRow={onClickRow} //单击一行
+        onDoubleClickRow={onDoubleClickRow} //双击一行
+        onColumnsShow={onColumnsShow} //自定义显示
       ></Stable>
     </div>
   );
