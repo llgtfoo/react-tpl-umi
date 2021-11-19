@@ -156,6 +156,7 @@ export default class SiderMenu extends Component {
             height: '100vh',
             position: 'fixed',
             left: 0,
+            // zIndex: 100,
           }}
         >
           <Menu
@@ -243,7 +244,9 @@ export default class SiderMenu extends Component {
             style={{
               padding: 15,
               margin: '56px 10px 10px',
-              minHeight: 280,
+              minHeight: '86vh',
+              boxSizing: 'border-box',
+              position: 'relative',
             }}
           >
             {siderMenu.length > 0 ? children : ''}

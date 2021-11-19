@@ -12,6 +12,7 @@ export default defineConfig({
   },
   dva: {
     hmr: true,
+    lazyLoad: true,
   },
   targets: {
     ie: 9,

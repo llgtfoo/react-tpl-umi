@@ -155,6 +155,7 @@ export default function MenuOne() {
         freeHeight={false} //表格高度自由延伸
         currentPage={currentPage} //当前页
         total={total} //总数
+        bordered={true}
         pageSize={pageSize} //页条数
         onChange={onChange} //当前页改变
         onShowSizeChange={onShowSizeChange} //页条数改变

@@ -9,6 +9,9 @@ html,
   background-color: #f0f2f5;
   /* overflow-x: hidden; */
 }
+#watermark {
+  min-height: 100vh;
+}
 * {
   padding: 0px;
   margin: 0px;
@@ -35,4 +38,10 @@ li {
   .ant-checkbox-wrapper {
     margin-left: 8px !important;
   }
+}
+.ant-empty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -4,10 +4,10 @@ export default [
     component: '@/pages/module-1/index.jsx',
     meta: { title: '模块一' },
     routes: [
-      {
-        path: '/module-1',
-        redirect: '/module-1/menu-1',
-      },
+      // {
+      //   path: '/module-1',
+      //   redirect: '/module-1/menu-1',
+      // },
       {
         path: '/module-1/menu-1',
         component: '@/pages/module-1/children/menu-1/index.jsx',

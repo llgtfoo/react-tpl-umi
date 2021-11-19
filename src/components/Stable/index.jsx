@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Pagination, Dropdown, Menu, Checkbox } from 'antd';
+import { Table, Pagination, Dropdown, Menu, Checkbox, Empty } from 'antd';
 import PropTypes from 'prop-types';
 import { BarsOutlined } from '@ant-design/icons';
 import './index.less';
@@ -59,6 +59,9 @@ export default class Stable extends Component {
     this.stablePageRef = React.createRef(); //page Dom
   }
   componentDidMount() {
+    if (this.props.dataSource <= 0) {
+      return;
+    }
     //监听窗口改变
     window.addEventListener('resize', this.autoHeight);
     this.autoHeight();
@@ -180,74 +183,80 @@ export default class Stable extends Component {
     };
     return (
       <div className="s-table">
-        <div className="s-table-container" ref={this.stableRef}>
-          <Table
-            loading={isloading}
-            columns={columns.filter((v) => v.show)}
-            dataSource={dataSource}
-            pagination={false}
-            bordered={bordered}
-            scroll={scroll}
-            rowSelection={rowSelections}
-            rowClassName={(record, index) => {
-              return record.key === this.state.currentRow.key
-                ? 'ant-table-row-selected'
-                : '';
-            }}
-            onRow={(record) => {
-              return {
-                onClick: (event) => {
-                  if (onClickRow) {
-                    this.setState({
-                      currentRow: record,
-                    });
-                    onClickRow(event, record);
-                  }
-                }, // 点击行
-                onDoubleClick: (event) => {
-                  if (onDoubleClickRow) {
-                    this.setState({
-                      currentRow: record,
-                    });
-                    onDoubleClickRow(event, record);
-                  }
-                },
-                onContextMenu: (event) => {},
-                onMouseEnter: (event) => {}, // 鼠标移入行
-                onMouseLeave: (event) => {},
-              };
-            }}
-            expandable={
-              columnsChild && dataChild ? { expandedRowRender } : false
-            }
-          />
-        </div>
-        <div className="page-info" ref={this.stablePageRef}>
-          <Dropdown
-            overlay={menu}
-            placement="topLeft"
-            trigger={['click']}
-            onVisibleChange={this.handleVisibleChange}
-            visible={visible}
-          >
-            <div className="columns-show">
-              <BarsOutlined />
-              <span>自定义显示</span>
+        {dataSource.length > 0 ? (
+          <div className="s-table">
+            <div className="s-table-container" ref={this.stableRef}>
+              <Table
+                loading={isloading}
+                columns={columns.filter((v) => v.show)}
+                dataSource={dataSource}
+                pagination={false}
+                bordered={bordered}
+                scroll={scroll}
+                rowSelection={rowSelections}
+                rowClassName={(record, index) => {
+                  return record.key === this.state.currentRow.key
+                    ? 'ant-table-row-selected'
+                    : '';
+                }}
+                onRow={(record) => {
+                  return {
+                    onClick: (event) => {
+                      if (onClickRow) {
+                        this.setState({
+                          currentRow: record,
+                        });
+                        onClickRow(event, record);
+                      }
+                    }, // 点击行
+                    onDoubleClick: (event) => {
+                      if (onDoubleClickRow) {
+                        this.setState({
+                          currentRow: record,
+                        });
+                        onDoubleClickRow(event, record);
+                      }
+                    },
+                    onContextMenu: (event) => {},
+                    onMouseEnter: (event) => {}, // 鼠标移入行
+                    onMouseLeave: (event) => {},
+                  };
+                }}
+                expandable={
+                  columnsChild && dataChild ? { expandedRowRender } : false
+                }
+              />
             </div>
-          </Dropdown>
-          <Pagination
-            total={total}
-            current={currentPage}
-            pageSize={pageSize}
-            pageSizeOptions={pageSizeOptions}
-            responsive={true}
-            showSizeChanger={showSizeChanger}
-            showQuickJumper={showQuickJumper}
-            showTotal={(total) => `共 ${total} 条`}
-            onChange={onChange}
-            onShowSizeChange={onShowSizeChange}
-          ></Pagination>
-        </div>
+            <div className="page-info" ref={this.stablePageRef}>
+              <Dropdown
+                overlay={menu}
+                placement="topLeft"
+                trigger={['click']}
+                onVisibleChange={this.handleVisibleChange}
+                visible={visible}
+              >
+                <div className="columns-show">
+                  <BarsOutlined />
+                  <span>自定义显示</span>
+                </div>
+              </Dropdown>
+              <Pagination
+                total={total}
+                current={currentPage}
+                pageSize={pageSize}
+                pageSizeOptions={pageSizeOptions}
+                responsive={true}
+                showSizeChanger={showSizeChanger}
+                showQuickJumper={showQuickJumper}
+                showTotal={(total) => `共 ${total} 条`}
+                onChange={onChange}
+                onShowSizeChange={onShowSizeChange}
+              ></Pagination>
+            </div>
+          </div>
+        ) : (
+          <Empty />
+        )}
       </div>
     );
   }

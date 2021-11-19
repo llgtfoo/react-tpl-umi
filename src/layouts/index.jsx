@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, history } from 'umi';
 import { Layout, Menu, Spin } from 'antd';
-import WaterMark from 'watermark-component-for-react';
+
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 import SiderMenu from './SiderMenu.jsx';
@@ -11,6 +11,7 @@ class Layouts extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.firstPath = null;
   }
   //菜单点击
   clickMenuItem = ({ key, keyPath, domEvent }) => {
@@ -21,7 +22,20 @@ class Layouts extends Component {
       type: 'common/setSiderMenus',
       payload: { currentMenu: currentMenu },
     });
-    console.log(this.state, '000-------', history.location.pathname);
+    //默认跳转第一个菜单
+    if (currentMenu.length > 0) {
+      const obj = this.getFirstJumpPath(currentMenu[0]);
+      history.push(obj.url);
+    }
+  };
+  //获取默认跳转路径
+  getFirstJumpPath = (data) => {
+    if (data.children && data.children.length > 0) {
+      this.getFirstJumpPath(data.children[0]);
+    } else {
+      this.firstPath = data;
+    }
+    return this.firstPath;
   };
   //处理侧边菜单数据
   getMenu = (key) => {
@@ -49,7 +63,7 @@ class Layouts extends Component {
     });
   }
   render() {
-    console.log(this.props, '-');
+    // console.log(this.props, '-');
     const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
     const selectedKeys = [current]; //顶部选中
     const { menuList, children, menuLoading } = this.props;
@@ -64,12 +78,6 @@ class Layouts extends Component {
       }
     }
     return (
-      // <WaterMark
-      //   content="UmiJS 项目模板"
-      //   globalAlpha="0.15"
-      //   width="400"
-      //   height="300"
-      // >
       <Layout>
         <Header className="layout-header" style={{ position: 'fixed' }}>
           {/* 系统logo */}
@@ -112,7 +120,6 @@ class Layouts extends Component {
           </Layout>
         )}
       </Layout>
-      // </WaterMark>
     );
   }
 }

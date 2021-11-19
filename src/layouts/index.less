@@ -1,9 +1,9 @@
 @import '~antd/es/style/themes/default.less';
-#root > .ant-layout {
+#watermark > .ant-layout {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   height: 100%;
 }
 .layout-header {
@@ -12,6 +12,7 @@
   display: flex;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
   .logo {
     float: left;
     width: 230px;
@@ -38,7 +39,7 @@
 }
 .menuLoading {
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100vh - 0px);
   display: flex;
   align-items: center;
   justify-content: center;
