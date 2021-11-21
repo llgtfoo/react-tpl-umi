@@ -13,9 +13,7 @@ export default [
       {
         path: '/',
         component: '@/layouts/index.jsx',
-        // wrappers: [
-        //   '@/permission',
-        // ],//菜单权限访问
+        wrappers: ['@/permissions/permission'], //菜单权限访问
         routes: [
           { path: '/', redirect: '/home' },
           {

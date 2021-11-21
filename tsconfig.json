@@ -3,7 +3,6 @@
     "moduleResolution": "node",
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "importHelpers": true,
     "jsx": "react-jsx",

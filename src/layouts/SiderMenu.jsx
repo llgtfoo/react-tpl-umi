@@ -81,7 +81,6 @@ export default class SiderMenu extends Component {
   //点击菜单展开
   openChange = (openKeys) => {
     const last = openKeys.pop();
-    console.log(openKeys, 'openKeys');
     this.setState({
       openKeys: [last],
     });
@@ -115,7 +114,6 @@ export default class SiderMenu extends Component {
     }
   };
   dropdownItem = ({ key }) => {
-    console.log(key, 'dropdownItem');
     if (key === 'close') {
       this.setState((state, props) => {
         return {
@@ -126,7 +124,6 @@ export default class SiderMenu extends Component {
     }
   };
   render() {
-    console.log(this.props, this.state, 'SiderMenu');
     const { collapsed, openKeys, tabLists } = this.state;
     const { children, siderMenu } = this.props;
     const selectedKeys = [history.location.pathname]; //选中

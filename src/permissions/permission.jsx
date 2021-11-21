@@ -2,13 +2,13 @@
  * @Description:菜单权限访问
  * @Author: llgtfoo
  * @Date: 2021-11-18 14:47:39
- * @LastEditTime: 2021-11-19 16:14:50
+ * @LastEditTime: 2021-11-21 12:19:21
  * @LastEditors: llgtfoo
- * @FilePath: \react-tpl-umi\src\permission.jsx
+ * @FilePath: \react-tpl-umi\src\permissions\permission.jsx
  */
 import React, { Component } from 'react';
 import { history } from 'umi';
-import NotFound from './pages/notFound/404.jsx';
+import NotFound from '../pages/notFound/404.jsx';
 import { fetchMenulist } from '@/services/common/index';
 let bool = null;
 export default class wrappers extends Component {

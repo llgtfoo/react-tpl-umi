@@ -90,12 +90,6 @@ export default class Stable extends Component {
     if (freeHeight) {
       delete scroll.y;
     }
-    console.log(
-      scroll,
-      this.stableRef.current.getBoundingClientRect(),
-      widthTotal,
-      'scroll',
-    );
     this.setState((state, props) => {
       return {
         scroll: scroll,

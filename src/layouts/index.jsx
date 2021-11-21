@@ -63,7 +63,6 @@ class Layouts extends Component {
     });
   }
   render() {
-    // console.log(this.props, '-');
     const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
     const selectedKeys = [current]; //顶部选中
     const { menuList, children, menuLoading } = this.props;

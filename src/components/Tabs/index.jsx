@@ -76,7 +76,6 @@ class Tab extends Component {
       },
       () => {
         this.setState((state, props) => {
-          console.log(state, '----');
           return {
             length: -(state.index * this.outsideWidth),
           };
