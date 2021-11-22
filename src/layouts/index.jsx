@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect, history } from 'umi';
 import { Layout, Menu, Spin } from 'antd';
-
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
-import SiderMenu from './SiderMenu.jsx';
-import SettingDropdown from '../components/SettingDropdown/index.jsx';
+import WaterMark from 'watermark-component-for-react'; //水印
+const { Header } = Layout;
+import SiderMenu from './SiderMenu.jsx'; //菜单栏
+import SettingDropdown from '../components/SettingDropdown/index.jsx'; //设置
 import './index.less';
 class Layouts extends Component {
   constructor(props) {
@@ -77,48 +76,55 @@ class Layouts extends Component {
       }
     }
     return (
-      <Layout>
-        <Header className="layout-header" style={{ position: 'fixed' }}>
-          {/* 系统logo */}
-          <div className="logo">
-            <i className="icon iconfont icon-years-fill"></i>
-            <span>系统名称</span>
-          </div>
-          <Menu
-            className="nav-menu-main"
-            theme="dark"
-            mode="horizontal"
-            selectedKeys={selectedKeys}
-            onClick={this.clickMenuItem}
-            style={{ height: '64px' }}
-          >
-            {menuList.map((item) => {
-              return (
-                <Menu.Item
-                  v-for="(item) in menuList"
-                  key={item.url}
-                  icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-                >
-                  {item.title}
-                </Menu.Item>
-              );
-            })}
-          </Menu>
-          {/* 系统设置 */}
-          <SettingDropdown></SettingDropdown>
-        </Header>
-        {menuLoading ? (
-          <div className="menuLoading">
-            <Spin size="large" />
-          </div>
-        ) : siderMenu.length > 0 ? (
-          <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
-        ) : (
-          <Layout style={{ margin: '74px 10px 10px', background: '#fff' }}>
-            {children}
-          </Layout>
-        )}
-      </Layout>
+      <WaterMark
+        content="UmiJS 项目模板"
+        globalAlpha="0.15"
+        width="400"
+        height="300"
+      >
+        <Layout>
+          <Header className="layout-header" style={{ position: 'fixed' }}>
+            {/* 系统logo */}
+            <div className="logo">
+              <i className="icon iconfont icon-years-fill"></i>
+              <span>系统名称</span>
+            </div>
+            <Menu
+              className="nav-menu-main"
+              theme="dark"
+              mode="horizontal"
+              selectedKeys={selectedKeys}
+              onClick={this.clickMenuItem}
+              style={{ height: '64px' }}
+            >
+              {menuList.map((item) => {
+                return (
+                  <Menu.Item
+                    v-for="(item) in menuList"
+                    key={item.url}
+                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+                  >
+                    {item.title}
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+            {/* 系统设置 */}
+            <SettingDropdown></SettingDropdown>
+          </Header>
+          {menuLoading ? (
+            <div className="menuLoading">
+              <Spin size="large" />
+            </div>
+          ) : siderMenu.length > 0 ? (
+            <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
+          ) : (
+            <Layout style={{ margin: '74px 10px 10px', background: '#fff' }}>
+              {children}
+            </Layout>
+          )}
+        </Layout>
+      </WaterMark>
     );
   }
 }

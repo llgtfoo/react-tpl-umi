@@ -2,7 +2,7 @@
  * @Description:菜单权限访问
  * @Author: llgtfoo
  * @Date: 2021-11-18 14:47:39
- * @LastEditTime: 2021-11-21 12:19:21
+ * @LastEditTime: 2021-11-22 09:38:19
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\src\permissions\permission.jsx
  */
@@ -19,10 +19,14 @@ export default class wrappers extends Component {
     };
   }
   async componentDidMount() {
-    //获取菜单
-    const { data, success } = await fetchMenulist();
-    if (success) {
-      this.setState({ list: data });
+    try {
+      //获取菜单
+      const { data, success } = await fetchMenulist();
+      if (success) {
+        this.setState({ list: data });
+      }
+    } catch (error) {
+      this.setState({ list: [] });
     }
   }
   render() {

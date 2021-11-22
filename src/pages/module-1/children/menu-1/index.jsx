@@ -145,7 +145,6 @@ export default function MenuOne() {
   };
   const onColumnsShow = (column) => {
     setColumns(column);
-    console.log(columns, 'columnssssssss');
   };
   return (
     <div className="menu-1-container">

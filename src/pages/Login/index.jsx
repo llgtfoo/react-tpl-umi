@@ -1,4 +1,4 @@
-// import { login } from '@/services/login/index';
+import { login } from '@/services/login/index';
 import { LockOutlined, TwitterOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Form, Input, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -18,16 +18,21 @@ export default function Login(props) {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      // const result = await login(values);
-      // if (result.status === 'ok') {
-      //   setLoading(false);
-      //   message.success('登录成功');
-      //   await fetchUserInfo();
-      /** 此方法会跳转到 redirect 参数所在的位置 */
-      if (!history) return;
-      const { query } = history.location;
-      const { redirect } = query;
-      history.push(redirect || '/');
+      const result = await login(values);
+      if (result.status === 'ok') {
+        setLoading(false);
+        message.success('登录成功');
+        await fetchUserInfo();
+        /** 此方法会跳转到 redirect 参数所在的位置 */
+        if (!history) return;
+        const { query } = history.location;
+        const { redirect } = query;
+        history.replace(redirect || '/');
+      } else {
+        setLoading(false);
+        message.error(result.data.message);
+      }
+
       // }
     } catch (error) {
       setLoading(false);
@@ -91,7 +96,7 @@ export default function Login(props) {
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="请输入用户名"
+                placeholder="用户名：admin"
                 autoComplete="off"
               />
             </Form.Item>
@@ -104,7 +109,7 @@ export default function Login(props) {
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="请输入密码"
+                placeholder="密码：123456"
               />
             </Form.Item>
 

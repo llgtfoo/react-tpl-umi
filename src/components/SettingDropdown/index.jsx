@@ -1,8 +1,12 @@
 import { Menu, Dropdown, Avatar, message } from 'antd';
-import './index.less';
 import { UserOutlined, SettingFilled, LogoutOutlined } from '@ant-design/icons';
+import { outLogin } from '@/services/login/index';
+import { history } from 'umi';
+import ThemePicker from '../ThemePicker/index';
+import './index.less';
+
 const SettingDropdown = (props) => {
-  function dropdownSettingItem({ key }) {
+  async function dropdownSettingItem({ key }) {
     switch (key) {
       case '0':
         message.info('单击了个人中心');
@@ -11,7 +15,12 @@ const SettingDropdown = (props) => {
         message.info('单击了个人设置');
         break;
       case '2':
-        message.info('单击了退出登录');
+        const { success } = await outLogin();
+        if (success) {
+          console.log(history);
+          message.success('退出登录成功！');
+          history.replace('/login');
+        }
         break;
     }
   }
@@ -39,6 +48,7 @@ const SettingDropdown = (props) => {
           <span className="username"> llgtfoo</span>
         </span>
       </Dropdown>
+      <ThemePicker></ThemePicker>
     </div>
   );
 };

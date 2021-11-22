@@ -17,6 +17,7 @@ export default defineConfig({
   targets: {
     ie: 9,
   },
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/PageLoading',
   },
@@ -27,4 +28,5 @@ export default defineConfig({
   ignoreMomentLocale: true,
   webpack5: {},
   autoprefixer: {},
+  // plugin: [],//配置额外的 umi 插件
 });
