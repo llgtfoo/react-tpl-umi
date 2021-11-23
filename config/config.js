@@ -17,6 +17,9 @@ export default defineConfig({
   targets: {
     ie: 9,
   },
+  // theme: {
+  //   "primary-color": "#1890ff",
+  // },
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/PageLoading',

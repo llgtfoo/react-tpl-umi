@@ -128,6 +128,6 @@ class Layouts extends Component {
     );
   }
 }
-export default connect((data) => {
-  return data.common;
+export default connect(({ common }) => {
+  return common;
 })(Layouts);

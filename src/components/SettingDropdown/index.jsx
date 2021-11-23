@@ -9,15 +9,16 @@ const SettingDropdown = (props) => {
   async function dropdownSettingItem({ key }) {
     switch (key) {
       case '0':
-        message.info('单击了个人中心');
+        // message.info('单击了个人中心');
+        history.push('/user/account');
         break;
       case '1':
-        message.info('单击了个人设置');
+        // message.info('单击了个人设置');
+        history.push('/user/setting');
         break;
       case '2':
         const { success } = await outLogin();
         if (success) {
-          console.log(history);
           message.success('退出登录成功！');
           history.replace('/login');
         }
@@ -40,7 +41,7 @@ const SettingDropdown = (props) => {
   );
   return (
     <div className="SettingDropdown">
-      <Dropdown overlay={menu} trigger={['hover']}>
+      <Dropdown overlay={menu} trigger={['click']}>
         <span className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
           <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
             llgtfoo
@@ -48,7 +49,6 @@ const SettingDropdown = (props) => {
           <span className="username"> llgtfoo</span>
         </span>
       </Dropdown>
-      <ThemePicker></ThemePicker>
     </div>
   );
 };
