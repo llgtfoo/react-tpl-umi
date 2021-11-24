@@ -1,6 +1,8 @@
 import { defineConfig } from 'umi';
-import routes from './routes';
-import proxy from './proxy';
+import routes from './routes.js';
+import proxy from './proxy.js';
+import apps from './apps.js';
+
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
@@ -27,9 +29,16 @@ export default defineConfig({
   routes, //路由
   proxy, //接口代理
   fastRefresh: {},
-  mfsu: {},
+  // mfsu: {},
   ignoreMomentLocale: true,
   webpack5: {},
   autoprefixer: {},
   // plugin: [],//配置额外的 umi 插件
+  qiankun: {
+    master: {
+      // 注册子应用信息
+      apps: apps,
+      sandbox: { strictStyleIsolation: true },
+    },
+  },
 });

@@ -16,16 +16,16 @@ class Layouts extends Component {
   clickMenuItem = ({ key, keyPath, domEvent }) => {
     const { dispatch } = this.props;
     history.push(key); //跳转
-    const currentMenu = this.getMenu(key);
-    dispatch({
-      type: 'common/setSiderMenus',
-      payload: { currentMenu: currentMenu },
-    });
-    //默认跳转第一个菜单
-    if (currentMenu.length > 0) {
-      const obj = this.getFirstJumpPath(currentMenu[0]);
-      history.push(obj.url);
-    }
+    // const currentMenu = this.getMenu(key);
+    // dispatch({
+    //   type: 'common/setSiderMenus',
+    //   payload: { currentMenu: currentMenu },
+    // });
+    // //默认跳转第一个菜单
+    // if (currentMenu.length > 0) {
+    //   const obj = this.getFirstJumpPath(currentMenu[0]);
+    //   history.push(obj.url);
+    // }
   };
   //获取默认跳转路径
   getFirstJumpPath = (data) => {
@@ -65,16 +65,6 @@ class Layouts extends Component {
     const current = `/${history.location.pathname.split('/')[1]}`; //顶部初始化选中
     const selectedKeys = [current]; //顶部选中
     const { menuList, children, menuLoading } = this.props;
-    //获取侧边菜单
-    let siderMenu = [];
-    const currentMenu = menuList.filter((v) => v.url === current);
-    if (currentMenu.length > 0) {
-      if (currentMenu[0].children && currentMenu[0].children.length > 0) {
-        siderMenu = currentMenu[0].children;
-      } else {
-        siderMenu = [];
-      }
-    }
     return (
       <WaterMark
         content="UmiJS 项目模板"
@@ -116,10 +106,8 @@ class Layouts extends Component {
             <div className="menuLoading">
               <Spin size="large" />
             </div>
-          ) : siderMenu.length > 0 ? (
-            <SiderMenu children={children} siderMenu={siderMenu}></SiderMenu>
           ) : (
-            <Layout style={{ margin: '74px 10px 10px', background: '#fff' }}>
+            <Layout style={{ margin: '64px 0px 0px', background: '#fff' }}>
               {children}
             </Layout>
           )}

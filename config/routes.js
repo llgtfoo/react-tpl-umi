@@ -21,7 +21,11 @@ export default [
             component: '@/pages/home/index.jsx',
             meta: { title: '首页' },
           },
-          ...routerList, //页面路由
+          {
+            path: '/sysetem-1',
+            microApp: 'app1',
+          },
+          // ...routerList, //页面路由
           {
             component: '@/pages/notFound/404.jsx',
           },

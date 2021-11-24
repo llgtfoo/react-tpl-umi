@@ -2,7 +2,7 @@
  * @Description:
  * @Author: llgtfoo
  * @Date: 2021-11-18 09:35:02
- * @LastEditTime: 2021-11-18 11:25:06
+ * @LastEditTime: 2021-11-24 18:34:53
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\mock\test.js
  */
@@ -18,7 +18,7 @@ export default {
   'GET /api/test/list': async (req, res) => {
     await waitTime(500);
     let data = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 4; i++) {
       data.push({
         name: `llgtfoo-${i}`,
         age: i + 10,
