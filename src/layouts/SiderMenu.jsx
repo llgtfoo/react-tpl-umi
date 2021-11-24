@@ -17,6 +17,7 @@ export default class SiderMenu extends Component {
     super(props);
     this.currentSelectedMenu = {}; //父级展开项
     this.unlisten = null;
+    this.rootSubmenuKeys = this.props.siderMenu.map((v) => v.url);
     this.state = {
       collapsed: false, //菜单收缩
       openKeys: [], //展开
@@ -45,9 +46,13 @@ export default class SiderMenu extends Component {
         } else {
           array = [...state.tabLists];
         }
+        const target = this.rootSubmenuKeys.filter((v) => {
+          return this.currentSelectedMenu.parentUrl.includes(v);
+        });
+
         return {
           tabLists: array, //标签页数据
-          openKeys: [this.currentSelectedMenu.parentUrl], //展开
+          openKeys: [this.currentSelectedMenu.parentUrl, ...target], //展开
         };
       });
     });
@@ -79,11 +84,19 @@ export default class SiderMenu extends Component {
     history.push(key);
   };
   //点击菜单展开
-  openChange = (openKeys) => {
-    const last = openKeys.pop();
-    this.setState({
-      openKeys: [last],
-    });
+  openChange = (keys) => {
+    const latestOpenKey = keys.find(
+      (key) => this.state.openKeys.indexOf(key) === -1,
+    );
+    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      this.setState({
+        openKeys: keys,
+      });
+    } else {
+      this.setState({
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
+      });
+    }
   };
   //标签页点击
   clickTab = (key) => {
@@ -165,40 +178,7 @@ export default class SiderMenu extends Component {
             onClick={this.clickMenuItem}
             onOpenChange={this.openChange}
           >
-            {siderMenu.map((item) => {
-              if (item.children && item.children.length > 0) {
-                return (
-                  <SubMenu
-                    key={item.url}
-                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-                    title={item.title}
-                    llgtfoo={item.url}
-                  >
-                    {item.children.map((v) => (
-                      <Menu.Item
-                        key={v.url}
-                        llgtfoo={v.url}
-                        icon={
-                          <i className={'icon iconfont' + ' ' + item.icon}></i>
-                        }
-                      >
-                        {v.title}
-                      </Menu.Item>
-                    ))}
-                  </SubMenu>
-                );
-              } else {
-                return (
-                  <Menu.Item
-                    key={item.url}
-                    llgtfoo={item.url}
-                    icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-                  >
-                    {item.title}
-                  </Menu.Item>
-                );
-              }
-            })}
+            {getMenuNodes(siderMenu)}
           </Menu>
         </Sider>
         <Layout
@@ -253,3 +233,32 @@ export default class SiderMenu extends Component {
     );
   }
 }
+
+//菜单递归
+const getMenuNodes = (data) => {
+  return data.map((item) => {
+    if (!item.children) {
+      return (
+        <Menu.Item
+          key={item.url}
+          llgtfoo={item.url}
+          icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+        >
+          {item.title}
+        </Menu.Item>
+      );
+    } else {
+      return (
+        <SubMenu
+          key={item.url}
+          icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+          title={item.title}
+          llgtfoo={item.url}
+        >
+          {getMenuNodes(item.children)}
+          {/* 递归调用，渲染二级列表 */}
+        </SubMenu>
+      );
+    }
+  });
+};
