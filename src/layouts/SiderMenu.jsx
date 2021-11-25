@@ -221,7 +221,6 @@ export default class SiderMenu extends Component {
             style={{
               padding: 15,
               margin: '56px 10px 10px',
-              minHeight: '86vh',
               boxSizing: 'border-box',
               position: 'relative',
             }}
