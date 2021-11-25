@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stable from '@/components/Stable/index.jsx';
 import './index.less';
 export default function MenuOne() {
+  useEffect(() => {
+    console.log('1111111111111111111111111111111');
+  });
   const column = [
     {
       title: 'Full Name',
