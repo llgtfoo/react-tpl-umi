@@ -38,7 +38,7 @@ export default defineConfig({
     master: {
       // 注册子应用信息
       apps: apps,
-      sandbox: { strictStyleIsolation: true },
+      sandbox: { strictStyleIsolation: true, experimentalStyleIsolation: true },
     },
   },
 });
