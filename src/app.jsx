@@ -41,3 +41,11 @@ export async function getInitialState() {
 export function render(oldRender) {
   oldRender();
 }
+let isSubApp = true;
+export function modifyClientRenderOpts(memo) {
+  console.log(memo, 'memomemo');
+  return {
+    ...memo,
+    rootElement: isSubApp ? 'root' : memo.rootElement,
+  };
+}

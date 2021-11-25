@@ -1,13 +1,29 @@
 // @import '~antd/dist/antd.variable.less';
 body,
-html,
-#root {
+html {
   width: 100%;
-  /* height: 100%; */
+  height: 100vh !important;
   height: max-content;
   box-sizing: border-box;
   background-color: #f0f2f5;
   /* overflow-x: hidden; */
+}
+#root,
+#watermark {
+  height: 100vh !important;
+}
+#watermark > .ant-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+.parent-container > div {
+  > div[id] {
+    height: 100%;
+  }
+  height: 100%;
 }
 * {
   padding: 0px;

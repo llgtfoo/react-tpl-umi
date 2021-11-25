@@ -107,7 +107,10 @@ class Layouts extends Component {
               <Spin size="large" />
             </div>
           ) : (
-            <Layout style={{ margin: '64px 0px 0px', background: '#fff' }}>
+            <Layout
+              style={{ margin: '64px 0px 0px', height: '100%' }}
+              className="parent-container"
+            >
               {children}
             </Layout>
           )}
