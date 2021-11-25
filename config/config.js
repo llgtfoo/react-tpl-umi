@@ -5,6 +5,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
+  title: '模板应用',
   hash: true,
   antd: {},
   history: {
