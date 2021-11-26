@@ -24,6 +24,17 @@ export default [
           {
             path: '/sysetem-1',
             microApp: 'app1',
+            microAppProps: {
+              autoSetLoading: false,
+              // // 微应用容器 class
+              // className: "myContainer",
+              // // wrapper class，仅开启 loading 动画时生效
+              // wrapperClassName: "myWrapper",
+            },
+          },
+          {
+            path: '/sysetem-2',
+            microApp: 'app2',
           },
           // ...routerList, //页面路由
           {

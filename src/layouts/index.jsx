@@ -108,7 +108,10 @@ class Layouts extends Component {
             </div>
           ) : (
             <Layout
-              style={{ margin: '64px 0px 0px', height: '100%' }}
+              style={{
+                margin: '64px 0px 0px',
+                height: '100%',
+              }}
               className="parent-container"
             >
               {children}

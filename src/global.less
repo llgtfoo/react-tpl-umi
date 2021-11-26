@@ -17,13 +17,15 @@ html {
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  background-color: #fff;
+  // background-color: #fff;
 }
-.parent-container > div {
-  > div[id] {
+.parent-container {
+  > div:not([class]) {
+    > div[id] {
+      height: 100%;
+    }
     height: 100%;
   }
-  height: 100%;
 }
 * {
   padding: 0px;

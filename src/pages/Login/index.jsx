@@ -9,10 +9,13 @@ export default function Login(props) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {});
   const { initialState, setInitialState } = useModel('@@initialState');
-  const fetchUserInfo = async () => {
+  const fetchUserInfo = async (user) => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
+      await setInitialState((s) => ({
+        ...s,
+        currentUser: { ...userInfo, ...user },
+      }));
     }
   };
   const onFinish = async (values) => {
@@ -22,7 +25,7 @@ export default function Login(props) {
       if (result.status === 'ok') {
         setLoading(false);
         message.success('登录成功');
-        await fetchUserInfo();
+        await fetchUserInfo(result);
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;

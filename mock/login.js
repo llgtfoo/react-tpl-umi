@@ -7,7 +7,7 @@ const waitTime = (time = 100) => {
 };
 
 let access = null;
-
+let userInfo = {};
 //获取用户状态
 const getAccess = () => {
   return access;
@@ -18,21 +18,23 @@ export default {
     const { password, username, type } = req.body;
     await waitTime(1000);
     if (password === '123456' && username === 'admin') {
-      res.send({
+      userInfo = {
         status: 'ok',
         type,
         currentAuthority: 'admin',
         token: 'brear lkkdkdkfkkfkffkfkfk',
-      });
+      };
+      res.send(userInfo);
       access = 'admin';
       return;
     } else if (password === '123456' && username === 'user') {
-      res.send({
+      userInfo = {
         status: 'ok',
         type,
         currentAuthority: 'user',
-        token: 'brear lkkdkdkfkkfqkffkfkfk',
-      });
+        token: 'brear lkkdkdkfkkfkffkfkfk',
+      };
+      res.send(userInfo);
       access = 'user';
       return;
     } else {
@@ -62,6 +64,7 @@ export default {
     res.send({
       success: true,
       data: {
+        ...userInfo,
         userName: 'llgtfoo',
         avatar:
           'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
