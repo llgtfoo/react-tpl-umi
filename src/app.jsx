@@ -1,7 +1,8 @@
 import { PageLoading } from '@ant-design/pro-layout';
 import { history, getDvaApp } from 'umi';
 import { currentUser as queryCurrentUser } from './services/login/index';
-import React, { useState } from 'react';
+import React from 'react';
+import actions from '@/models/GlobalState.js';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
 let currentUser = {};
@@ -25,6 +26,8 @@ export async function getInitialState() {
   //验证用户是不是登录状态，刷新执行(服务器端存储登录用户数据)
   if (history.location.pathname !== loginPath) {
     currentUser = await fetchUserInfo();
+    console.log(currentUser, actions, 'currentUser');
+    actions.setGlobalState({ userInfo: { ...currentUser } });
     return {
       fetchUserInfo,
       currentUser,

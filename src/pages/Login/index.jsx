@@ -2,20 +2,26 @@ import { login } from '@/services/login/index';
 import { LockOutlined, TwitterOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Form, Input, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { history, useModel } from 'umi';
+import { history, useModel, useDispatch } from 'umi';
+import actions from '@/models/GlobalState.js';
 import './index.less';
 
 export default function Login(props) {
+  const dispatch = useDispatch();
+  console.log(props, 'login');
   const [loading, setLoading] = useState(false);
   useEffect(() => {});
   const { initialState, setInitialState } = useModel('@@initialState');
   const fetchUserInfo = async (user) => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s) => ({
-        ...s,
-        currentUser: { ...userInfo, ...user },
-      }));
+      await setInitialState((s) => {
+        actions.setGlobalState({ userInfo: { ...userInfo, ...user } });
+        return {
+          ...s,
+          currentUser: { ...userInfo, ...user },
+        };
+      });
     }
   };
   const onFinish = async (values) => {
