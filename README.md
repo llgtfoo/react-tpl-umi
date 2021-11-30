@@ -1,4 +1,4 @@
-# react 基于@umijs/plugin-qiankun 微前端开发的基座应用，配置父子应用dva数据交互
+# react 基于@umijs/plugin-qiankun 微前端开发的子应用，配置父子应用dva数据交互
 ```
 主应用(基座应用)：
 
