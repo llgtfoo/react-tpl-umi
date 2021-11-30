@@ -17,12 +17,14 @@ export default class SiderMenu extends Component {
     super(props);
     this.currentSelectedMenu = {}; //父级展开项
     this.unlisten = null;
-    this.rootSubmenuKeys = this.props.siderMenu.map((v) => v.url);
+    this.rootSubmenuKeys =
+      this.props.siderMenu && this.props.siderMenu.map((v) => v.url); //根菜单集合
     this.state = {
       collapsed: false, //菜单收缩
       openKeys: [], //展开
       // activekeys: '', //tab默认选中项
       tabLists: [],
+      refresh: true, //刷新当前页
     };
   }
   componentDidMount() {
@@ -46,10 +48,13 @@ export default class SiderMenu extends Component {
         } else {
           array = [...state.tabLists];
         }
-        const target = this.rootSubmenuKeys.filter((v) => {
-          return this.currentSelectedMenu.parentUrl.includes(v);
-        });
 
+        const target = this.rootSubmenuKeys.filter((v) => {
+          return (
+            this.currentSelectedMenu.parentUrl &&
+            this.currentSelectedMenu.parentUrl.includes(v)
+          );
+        });
         return {
           tabLists: array, //标签页数据
           openKeys: [this.currentSelectedMenu.parentUrl, ...target], //展开
@@ -60,6 +65,7 @@ export default class SiderMenu extends Component {
   componentWillUnmount() {
     if (this.unlisten) {
       this.unlisten();
+      this.currentSelectedMenu = {};
     }
   }
   //递归获取子菜单父级展开项
@@ -133,11 +139,22 @@ export default class SiderMenu extends Component {
           tabLists: [this.currentSelectedMenu],
         };
       });
-    } else if (key === 'refresh ') {
+    } else if (key === 'refresh') {
+      this.setState(
+        (state, props) => {
+          return {
+            refresh: false,
+          };
+        },
+        () => {
+          this.setState({ refresh: true });
+        },
+      );
     }
   };
   render() {
-    const { collapsed, openKeys, tabLists } = this.state;
+    // console.log(this.props);
+    const { collapsed, openKeys, tabLists, refresh } = this.state;
     const { children, siderMenu } = this.props;
     const selectedKeys = [history.location.pathname]; //选中
     const activekeys = history.location.pathname; //选中
@@ -154,7 +171,7 @@ export default class SiderMenu extends Component {
       closeable = true;
     }
     return (
-      <Layout style={{ marginTop: 64, width: '100%' }}>
+      <Layout style={{ width: '100%' }}>
         <Sider
           width={230}
           className="site-layout-background"
@@ -221,12 +238,12 @@ export default class SiderMenu extends Component {
             style={{
               padding: 15,
               margin: '56px 10px 10px',
-              minHeight: '86vh',
+              height: '100%',
               boxSizing: 'border-box',
               position: 'relative',
             }}
           >
-            {siderMenu.length > 0 ? children : ''}
+            {siderMenu && siderMenu.length > 0 && refresh ? children : ''}
           </Content>
         </Layout>
       </Layout>
@@ -236,29 +253,32 @@ export default class SiderMenu extends Component {
 
 //菜单递归
 const getMenuNodes = (data) => {
-  return data.map((item) => {
-    if (!item.children) {
-      return (
-        <Menu.Item
-          key={item.url}
-          llgtfoo={item.url}
-          icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-        >
-          {item.title}
-        </Menu.Item>
-      );
-    } else {
-      return (
-        <SubMenu
-          key={item.url}
-          icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
-          title={item.title}
-          llgtfoo={item.url}
-        >
-          {getMenuNodes(item.children)}
-          {/* 递归调用，渲染二级列表 */}
-        </SubMenu>
-      );
-    }
-  });
+  return (
+    data &&
+    data.map((item) => {
+      if (!item.children) {
+        return (
+          <Menu.Item
+            key={item.url}
+            llgtfoo={item.url}
+            icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+          >
+            {item.title}
+          </Menu.Item>
+        );
+      } else {
+        return (
+          <SubMenu
+            key={item.url}
+            icon={<i className={'icon iconfont' + ' ' + item.icon}></i>}
+            title={item.title}
+            llgtfoo={item.url}
+          >
+            {getMenuNodes(item.children)}
+            {/* 递归调用，渲染二级列表 */}
+          </SubMenu>
+        );
+      }
+    })
+  );
 };

@@ -2,8 +2,8 @@ import { connect } from 'umi';
 import { List, Avatar } from 'antd';
 import { useEffect } from 'react';
 import './index.less';
-export default connect(({ home, loading }) => {
-  return { home, loading };
+export default connect(({ home, user, loading }) => {
+  return { home, loading, user };
 })(function IndexPage(props) {
   const { dispatch } = props;
   useEffect(() => {
@@ -17,7 +17,7 @@ export default connect(({ home, loading }) => {
   } = props;
   return (
     <List
-      header={<h1>&nbsp;&nbsp;首页——home-page</h1>}
+      header={<h1>&nbsp;&nbsp;首页——home-page{props.user.userInfo.userId}</h1>}
       className="home-page"
       itemLayout="vertical"
       size="large"

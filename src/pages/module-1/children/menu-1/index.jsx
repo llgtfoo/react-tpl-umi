@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stable from '@/components/Stable/index.jsx';
 import './index.less';
+import { useModel } from 'umi';
 export default function MenuOne() {
   const column = [
     {

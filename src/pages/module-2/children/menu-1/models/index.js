@@ -2,9 +2,9 @@
  * @Description:
  * @Author: llgtfoo
  * @Date: 2021-11-18 09:00:54
- * @LastEditTime: 2021-11-18 09:02:03
+ * @LastEditTime: 2021-11-24 19:03:40
  * @LastEditors: llgtfoo
- * @FilePath: \react-tpl-umi\src\pages\module-2\children\menu-1\models\index.js
+ * @FilePath: \react-quankun-test\src\pages\module-2\children\menu-1\models\index.js
  */
 export default {
   namespace: 'menu2-1',
@@ -12,14 +12,14 @@ export default {
     menuList: [],
   },
   // 初始化调用
-  subscriptions: {
-    setup({ dispatch, history }) {
-      // 监听路有变化
-      history.listen(({ pathname }) => {
-        // console.log(pathname, 'menu2-1')
-      });
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     // 监听路有变化
+  //     // history.listen(({ pathname }) => {
+  //     //   // console.log(pathname, 'menu2-1')
+  //     // });
+  //   },
+  // },
 
   effects: {
     // 异步改变state中menuList

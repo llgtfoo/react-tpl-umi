@@ -2,9 +2,9 @@
  * @Description:
  * @Author: llgtfoo
  * @Date: 2021-11-18 08:58:33
- * @LastEditTime: 2021-11-18 16:06:28
+ * @LastEditTime: 2021-11-24 19:03:16
  * @LastEditors: llgtfoo
- * @FilePath: \react-tpl-umi\src\pages\home\models\index.js
+ * @FilePath: \react-quankun-test\src\pages\home\models\index.js
  */
 import * as llgtfoo from '../api/index';
 export default {
@@ -13,14 +13,14 @@ export default {
     list: [],
   },
   // 初始化调用
-  subscriptions: {
-    setup({ dispatch, history }) {
-      // 监听路有变化
-      history.listen(({ pathname }) => {
-        // console.log(pathname, 'home')
-      });
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     // 监听路有变化
+  //     // history.listen(({ pathname }) => {
+  //     //   // console.log(pathname, 'home')
+  //     // });
+  //   },
+  // },
 
   effects: {
     // 异步改变state中list

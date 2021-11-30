@@ -6,11 +6,6 @@ export default [
     component: '@/layouts/BlankLayout.jsx',
     routes: [
       {
-        name: 'login',
-        path: '/login',
-        component: '@/pages/Login/index.jsx',
-      },
-      {
         path: '/',
         component: '@/layouts/index.jsx',
         // wrappers: ['@/permissions/permission'], //菜单权限访问
