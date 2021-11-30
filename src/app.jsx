@@ -26,7 +26,6 @@ export async function getInitialState() {
   //验证用户是不是登录状态，刷新执行(服务器端存储登录用户数据)
   if (history.location.pathname !== loginPath) {
     currentUser = await fetchUserInfo();
-    console.log(currentUser, actions, 'currentUser');
     actions.setGlobalState({ userInfo: { ...currentUser } });
     return {
       fetchUserInfo,

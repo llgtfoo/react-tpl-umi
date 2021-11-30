@@ -11,7 +11,7 @@ export default {
     setup({ dispatch, history }) {
       // 监听路有变化
       history.listen(({ pathname }) => {
-        console.log(pathname, 'common');
+        // console.log(pathname, 'common');
       });
     },
   },

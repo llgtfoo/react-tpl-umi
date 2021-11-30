@@ -2,23 +2,23 @@
  * @Description:用户数据
  * @Author: llgtfoo
  * @Date: 2021-11-23 15:41:01
- * @LastEditTime: 2021-11-29 15:57:31
+ * @LastEditTime: 2021-11-30 11:04:12
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\src\models\user.js
  */
-const user = {
+export default {
   namespace: 'user',
   state: {
     userInfo: {
       username: 'llgtfoo',
-      orgId: '0001',
+      userId: '1111',
     },
+    llgtfoo: 'llgtfoo@163.com',
     theme: '#1890ff',
   },
   reducers: {
     // 改变state中userInfo
     setUserInfo(state, action) {
-      console.log(action.data, 'setUserInfo');
       return { ...state, ...action.data };
     },
     //改变主题
@@ -29,7 +29,6 @@ const user = {
   },
   effects: {
     *fetchUser({ payload: currentMenu }, { call, put }) {
-      console.log(currentMenu, 'currentMenu');
       yield put({ type: 'setUserInfo', data: currentMenu });
     },
   },
@@ -42,4 +41,3 @@ const user = {
   //   },
   // },
 };
-export default user;

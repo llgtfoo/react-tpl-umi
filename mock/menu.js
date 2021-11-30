@@ -8,7 +8,7 @@ const waitTime = (time = 100) => {
 export default {
   //菜单接口
   'GET /api/getMenu': async (req, res) => {
-    await waitTime(1000);
+    await waitTime(500);
     res.send({
       success: true,
       data: [

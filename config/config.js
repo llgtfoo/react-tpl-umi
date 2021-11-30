@@ -16,6 +16,7 @@ export default defineConfig({
   dva: {
     hmr: true,
     lazyLoad: true,
+    immer: false,
   },
   targets: {
     ie: 9,
@@ -24,9 +25,9 @@ export default defineConfig({
   //   "primary-color": "#1890ff",
   // },
   publicPath: process.env.NODE_ENV === 'production' ? '/' : './',
-  // dynamicImport: {
-  //   loading: '@ant-design/pro-layout/es/PageLoading',
-  // },
+  dynamicImport: {
+    loading: '@ant-design/pro-layout/es/PageLoading',
+  },
   routes, //路由
   proxy, //接口代理
   fastRefresh: {},
@@ -40,6 +41,8 @@ export default defineConfig({
       title: '子应用',
       // 注册子应用信息
       apps: apps,
+      defer: true,
+      prefetch: true,
       sandbox: {
         strictStyleIsolation: true,
         experimentalStyleIsolation: true,

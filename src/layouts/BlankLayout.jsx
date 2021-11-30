@@ -8,13 +8,6 @@ const InspectorWrapper =
   process.env.NODE_ENV === 'development' ? Inspector : React.Fragment;
 
 const BlankLayout = (props) => {
-  console.log(props, 'user');
-  useEffect(() => {
-    setTimeout(() => {
-      console.log('setTimeout');
-      actions.setGlobalState({ userInfo: { llgtfoo: 'llgtfoo' } });
-    }, 5000);
-  }, []);
   const [locale] = useState(zhCN);
   return (
     <ConfigProvider locale={locale}>
@@ -22,5 +15,6 @@ const BlankLayout = (props) => {
     </ConfigProvider>
   );
 };
-
-export default connect(({ user }) => user)(BlankLayout);
+export default connect((state) => {
+  return state.user;
+})(BlankLayout);

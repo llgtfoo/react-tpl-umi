@@ -8,7 +8,6 @@ import './index.less';
 
 export default function Login(props) {
   const dispatch = useDispatch();
-  console.log(props, 'login');
   const [loading, setLoading] = useState(false);
   useEffect(() => {});
   const { initialState, setInitialState } = useModel('@@initialState');
