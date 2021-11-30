@@ -1,4 +1,32 @@
-# react 基于UMiJS的一整套完整项目开发流程模板,包含常用表格组件的一整套封装、页面打开导航栏、菜单权限控制、dva数据交互模式、request接口请求方法。
+# react 基于@umijs/plugin-qiankun 微前端开发的基座应用，配置父子应用dva数据交互
+```
+主应用(基座应用)：
+
+
+import { initGlobalState, MicroAppStateActions } from 'qiankun';
+
+// 初始化 state
+const actions: MicroAppStateActions = initGlobalState(state);
+
+actions.onGlobalStateChange((state, prev) => {
+  // state: 变更后的状态; prev 变更前的状态
+  console.log(state, prev);
+});
+actions.setGlobalState(state);
+actions.offGlobalStateChange();
+微应用：
+
+// 从生命周期 mount 中获取通信方法，使用方式和 master 一致
+export function mount(props) {
+  props.onGlobalStateChange((state, prev) => {
+    // state: 变更后的状态; prev 变更前的状态
+    console.log(state, prev);
+  });
+
+  props.setGlobalState(state);
+}
+```
+# 包含常用表格组件的一整套封装、页面打开导航栏、菜单权限控制、dva数据交互模式、request接口请求方法。
 ## umiJS3.0 antd4.x
 
 ```
@@ -31,6 +59,7 @@ react-tpl-umi
 │  │  └─ SiderMenu.jsx -------------- > 菜单组件入口
 │  ├─ models ------------------------ > dva数据流
 │  │  ├─ user.js -------------------- > 用户信息数据流
+│  │  ├─ GlobalState.js ------------- > 微前端子应用数据交互
 │  │  └─ common.js ------------------ > 公共dva数据流
 │  ├─ pages ------------------------- > 页面集合
 │  │  ├─ document.ejs --------------- > HTML 模板
@@ -39,7 +68,6 @@ react-tpl-umi
 │  │  │  ├─ index.jsx --------------- > 页面
 │  │  │  └─ models ------------------ > home页面dva数据流
 │  │  ├─ index.js ------------------- >
-│  │  ├─ Login ---------------------- > 登录页面
 │  │  ├─ module-1 ------------------- > 模块一
 │  │  │  ├─ children ---------------- > 子菜单
 │  │  │  │  ├─ menu-1 --------------- > 菜单一模块
