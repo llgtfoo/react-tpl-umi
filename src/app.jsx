@@ -24,14 +24,14 @@ export async function getInitialState() {
     return undefined;
   };
   //验证用户是不是登录状态，刷新执行
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
-  }
+  // if (history.location.pathname !== loginPath) {
+  //   const currentUser = await fetchUserInfo();
+  //   return {
+  //     fetchUserInfo,
+  //     currentUser,
+  //     settings: {},
+  //   };
+  // }
   return {
     fetchUserInfo,
     settings: {},

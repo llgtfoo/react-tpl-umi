@@ -1,11 +1,12 @@
 import { Menu, Dropdown, Avatar, message } from 'antd';
 import { UserOutlined, SettingFilled, LogoutOutlined } from '@ant-design/icons';
 import { outLogin } from '@/services/login/index';
-import { history } from 'umi';
+import { history, useDispatch } from 'umi';
 import ThemePicker from '../ThemePicker/index';
 import './index.less';
 
 const SettingDropdown = (props) => {
+  const dispatch = useDispatch();
   async function dropdownSettingItem({ key }) {
     switch (key) {
       case '0':
@@ -19,6 +20,10 @@ const SettingDropdown = (props) => {
       case '2':
         const { success } = await outLogin();
         if (success) {
+          dispatch({
+            type: 'user/fetchUser',
+            payload: {},
+          });
           message.success('退出登录成功！');
           history.replace('/login');
         }

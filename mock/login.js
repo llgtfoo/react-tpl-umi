@@ -6,36 +6,35 @@ const waitTime = (time = 100) => {
   });
 };
 
-let access = null;
+let userInfo = {};
 
-//获取用户状态
-const getAccess = () => {
-  return access;
-};
 export default {
   //登录接口
   'POST /api/login': async (req, res) => {
     const { password, username, type } = req.body;
     await waitTime(1000);
     if (password === '123456' && username === 'admin') {
-      res.send({
+      userInfo = {
         status: 'ok',
         type,
         currentAuthority: 'admin',
         token: 'brear lkkdkdkfkkfkffkfkfk',
-      });
-      access = 'admin';
-      return;
-    } else if (password === '123456' && username === 'user') {
+        userName: 'llgtfoo',
+        avatar:
+          'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        userId: '00000001',
+        email: 'llgtfoo@163.com',
+        access: 'admin',
+      };
       res.send({
         status: 'ok',
-        type,
-        currentAuthority: 'user',
-        token: 'brear lkkdkdkfkkfqkffkfkfk',
+        data: { ...userInfo },
+        message: '登录成功',
+        success: true,
       });
-      access = 'user';
       return;
     } else {
+      userInfo = {};
       res.send({
         data: {
           status: 'noOk',
@@ -46,9 +45,9 @@ export default {
       return;
     }
   },
-  //获取用户信息
-  'GET /api/currentUserInfo': (req, res) => {
-    if (!getAccess()) {
+  //判断是不是登录状态
+  'GET /api/isLoginState': (req, res) => {
+    if (Object.keys(userInfo).length <= 0) {
       res.status(401).send({
         data: {
           isLogin: false,
@@ -61,18 +60,30 @@ export default {
     }
     res.send({
       success: true,
-      data: {
-        userName: 'llgtfoo',
-        avatar:
-          'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-        userId: '00000001',
-        email: 'llgtfoo@163.com',
-        access: getAccess(),
-      },
+      data: { ...userInfo },
     });
   },
+  //获取用户信息
+  'GET /api/currentUserInfo': (req, res) => {
+    if (Object.keys(userInfo).length <= 0) {
+      res.status(401).send({
+        data: {
+          isLogin: false,
+        },
+        errorCode: '401',
+        errorMessage: '请先登录！',
+        success: true,
+      });
+      return;
+    }
+    res.send({
+      success: true,
+      data: { ...userInfo },
+    });
+  },
+  //退出登录
   'POST /api/login/outLogin': (req, res) => {
-    access = '';
+    userInfo = {};
     res.send({
       data: { message: '退出登录!' },
       success: true,

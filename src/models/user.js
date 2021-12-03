@@ -2,7 +2,7 @@
  * @Description:用户数据
  * @Author: llgtfoo
  * @Date: 2021-11-23 15:41:01
- * @LastEditTime: 2021-11-23 16:06:55
+ * @LastEditTime: 2021-12-03 10:47:39
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\src\models\user.js
  */
@@ -27,7 +27,7 @@ export default {
     },
   },
   effects: {
-    *fetchUser({ payload: { currentMenu } }, { call, put }) {
+    *fetchUser({ payload: currentMenu }, { call, put }) {
       yield put({ type: 'setUserInfo', data: currentMenu });
     },
   },

@@ -2,18 +2,17 @@ import { login } from '@/services/login/index';
 import { LockOutlined, TwitterOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Form, Input, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { history, useModel } from 'umi';
+import { history, useModel, useDispatch } from 'umi';
 import './index.less';
 
 export default function Login(props) {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {});
   const { initialState, setInitialState } = useModel('@@initialState');
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
-    }
+  const fetchUserInfo = async (data) => {
+    // const userInfo = await initialState?.fetchUserInfo?.();
+    setInitialState((s) => ({ ...s, currentUser: data }));
   };
   const onFinish = async (values) => {
     setLoading(true);
@@ -22,12 +21,16 @@ export default function Login(props) {
       if (result.status === 'ok') {
         setLoading(false);
         message.success('登录成功');
-        await fetchUserInfo();
+        await fetchUserInfo(result.data);
+        dispatch({
+          type: 'user/fetchUser',
+          payload: result.data,
+        });
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query;
-        history.replace(redirect || '/');
+        history.replace(redirect || '/home');
       } else {
         setLoading(false);
         message.error(result.data.message);
