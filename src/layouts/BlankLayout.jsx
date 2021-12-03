@@ -8,6 +8,7 @@ const InspectorWrapper =
   process.env.NODE_ENV === 'development' ? Inspector : React.Fragment;
 
 const BlankLayout = (props) => {
+  console.log(props, 'BlankLayout-props');
   const [locale] = useState(zhCN);
   return (
     <ConfigProvider locale={locale}>

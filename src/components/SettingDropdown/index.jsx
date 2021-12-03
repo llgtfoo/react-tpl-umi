@@ -2,6 +2,7 @@ import { Menu, Dropdown, Avatar, message } from 'antd';
 import { UserOutlined, SettingFilled, LogoutOutlined } from '@ant-design/icons';
 import { outLogin } from '@/services/login/index';
 import { history } from 'umi';
+import actions from '@/models/GlobalState.js';
 import ThemePicker from '../ThemePicker/index';
 import './index.less';
 
@@ -20,6 +21,7 @@ const SettingDropdown = (props) => {
         const { success } = await outLogin();
         if (success) {
           message.success('退出登录成功！');
+          actions.setGlobalState({ userInfo: {} });
           history.replace('/login');
         }
         break;

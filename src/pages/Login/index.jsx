@@ -12,16 +12,14 @@ export default function Login(props) {
   useEffect(() => {});
   const { initialState, setInitialState } = useModel('@@initialState');
   const fetchUserInfo = async (user) => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      await setInitialState((s) => {
-        actions.setGlobalState({ userInfo: { ...userInfo, ...user } });
-        return {
-          ...s,
-          currentUser: { ...userInfo, ...user },
-        };
-      });
-    }
+    console.log(user, '------');
+    // const userInfo = await initialState?.fetchUserInfo?.();
+    // if (userInfo) {
+    setInitialState((s) => {
+      actions.setGlobalState({ userInfo: { ...user.data } });
+      return { ...s, currentUser: { ...user.data } };
+    });
+    // }
   };
   const onFinish = async (values) => {
     setLoading(true);

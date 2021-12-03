@@ -24,15 +24,15 @@ export async function getInitialState() {
     return undefined;
   };
   //验证用户是不是登录状态，刷新执行(服务器端存储登录用户数据)
-  if (history.location.pathname !== loginPath) {
-    currentUser = await fetchUserInfo();
-    actions.setGlobalState({ userInfo: { ...currentUser } });
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
-  }
+  // if (history.location.pathname !== loginPath) {
+  //   currentUser = await fetchUserInfo();
+  //   actions.setGlobalState({ userInfo: { ...currentUser } });
+  //   return {
+  //     fetchUserInfo,
+  //     currentUser,
+  //     settings: {},
+  //   };
+  // }
   return {
     fetchUserInfo,
     settings: {},

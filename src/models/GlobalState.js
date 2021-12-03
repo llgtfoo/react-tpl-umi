@@ -2,7 +2,7 @@
  * @Description:
  * @Author: llgtfoo
  * @Date: 2021-11-29 15:55:56
- * @LastEditTime: 2021-11-30 11:04:02
+ * @LastEditTime: 2021-12-03 17:12:28
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\src\models\GlobalState.js
  */
@@ -19,6 +19,7 @@ actions.getGlobalState = (key) => {
 };
 
 actions.onGlobalStateChange((newState, prev) => {
+  console.log(newState, 'newState');
   if (JSON.stringify(newState) === JSON.stringify(prev)) {
     return;
   }
