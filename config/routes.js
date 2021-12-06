@@ -30,7 +30,7 @@ export default [
               // // 微应用容器 class
               // className: "myContainer",
               // // wrapper class，仅开启 loading 动画时生效
-              // wrapperClassName: "myWrapper",
+              // wrapperClassName: "parent-container",
             },
           },
           {

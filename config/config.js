@@ -26,7 +26,7 @@ export default defineConfig({
   // },
   publicPath: process.env.NODE_ENV === 'production' ? '/' : './',
   dynamicImport: {
-    loading: '@ant-design/pro-layout/es/PageLoading',
+    loading: '@/components/Loading/index',
   },
   routes, //路由
   proxy, //接口代理

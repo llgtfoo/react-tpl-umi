@@ -1,4 +1,4 @@
-import { PageLoading } from '@ant-design/pro-layout';
+import Loading from '@/components/Loading/index';
 import { history, getDvaApp } from 'umi';
 import { currentUser as queryCurrentUser } from './services/login/index';
 import React from 'react';
@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
 let currentUser = {};
 export const initialStateConfig = {
-  loading: <PageLoading />,
+  loading: <Loading />,
 };
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state

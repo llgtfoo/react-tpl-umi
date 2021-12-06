@@ -2,7 +2,7 @@
  * @Description:登录状态验证
  * @Author: llgtfoo
  * @Date: 2021-11-18 14:47:39
- * @LastEditTime: 2021-12-03 17:25:33
+ * @LastEditTime: 2021-12-06 09:25:46
  * @LastEditors: llgtfoo
  * @FilePath: \react-tpl-umi\src\permissions\isLoginState.jsx
  */

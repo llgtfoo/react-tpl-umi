@@ -5,6 +5,7 @@ import WaterMark from 'watermark-component-for-react'; //水印
 const { Header } = Layout;
 import SiderMenu from './SiderMenu.jsx'; //菜单栏
 import SettingDropdown from '../components/SettingDropdown/index.jsx'; //设置
+import Loading from '../components/Loading/index';
 import './index.less';
 class Layouts extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class Layouts extends Component {
         width="400"
         height="300"
       >
-        <Layout>
+        <Layout className="llgtfoo" style={{ height: 'calc(100% - 0px)' }}>
           <Header className="layout-header" style={{ position: 'fixed' }}>
             {/* 系统logo */}
             <div className="logo">
@@ -104,7 +105,7 @@ class Layouts extends Component {
           </Header>
           {menuLoading ? (
             <div className="menuLoading">
-              <Spin size="large" />
+              <Loading></Loading>
             </div>
           ) : (
             <Layout
